@@ -10,8 +10,8 @@ import java.sql.SQLException;
 
 
 public class Database{
-    public Database() {
-
+    private static final Database finalInstance = new Database();
+     private Database() {
     }
     public boolean validatePassword(String sql, String password){
         try(
@@ -64,5 +64,8 @@ public class Database{
             e.printStackTrace();
             return "";
         }
+    }
+    public static Database getInstance() {
+        return finalInstance;
     }
 }
