@@ -47,7 +47,13 @@
     <groupId>io.javalin</groupId>
     <artifactId>javalin</artifactId>
     <version>6.3.0</version>
-</dependency>
+    </dependency>
+    
+    <dependency>
+    <groupId>org.mariadb.jdbc</groupId>
+    <artifactId>mariadb-java-client</artifactId>
+    <version>LATEST</version>
+  </dependency>
 
   <dependency>
     <groupId>org.slf4j</groupId>

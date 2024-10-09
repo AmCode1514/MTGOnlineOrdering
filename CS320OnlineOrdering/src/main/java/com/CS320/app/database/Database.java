@@ -16,7 +16,7 @@ public class Database{
     public boolean validatePassword(String sql, String password){
         try(
             // connect to the database and query
-            Connection conn = DriverManager.getConnection(DatabaseCredential.getUrl());
+            Connection conn = DriverManager.getConnection(DatabaseCredential.getUrl(), DatabaseCredential.getUser(), DatabaseCredential.getPassword());
             Statement query = conn.createStatement();
             ResultSet results = query.executeQuery(sql);
             )
@@ -34,7 +34,7 @@ public class Database{
     public boolean createUser(String sql) {
         try(
             // connect to the database and query
-            Connection conn = DriverManager.getConnection(DatabaseCredential.getUrl());
+            Connection conn = DriverManager.getConnection(DatabaseCredential.getUrl(),DatabaseCredential.getUser(), DatabaseCredential.getPassword());
             Statement query = conn.createStatement();
             )
             {
