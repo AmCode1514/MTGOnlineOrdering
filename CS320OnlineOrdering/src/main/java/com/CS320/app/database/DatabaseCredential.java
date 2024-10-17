@@ -3,7 +3,7 @@ package com.CS320.app.database;
 
 public class DatabaseCredential {
 
-    private static final String url = "localhost:3306";
+    private static final String url = "jdbc:mariadb://localhost:3306/OnlineStripperOrdering";
     private static final String user = "brent";
     private static final String password = "Coffee123";
 
