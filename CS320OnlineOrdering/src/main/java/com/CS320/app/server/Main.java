@@ -1,4 +1,4 @@
-package com.CS320.app;
+package com.CS320.app.server;
 import com.CS320.app.database.DatabaseRequestExecutor;
 import com.CS320.app.requests.*;
 /**
