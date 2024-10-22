@@ -1,17 +1,12 @@
 package com.CS320.app.server;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.PriorityQueue;
-import java.util.Set;
-
-import com.CS320.app.misc.SessionComparator;
 
 public class SessionManager extends Thread{
 
        private static SessionManager manager = new SessionManager();
-        HashMap<Session, Session> sessionLogger = new HashMap<Session, Session>();
+       private static HashMap<Session, Session> sessionLogger = new HashMap<Session, Session>();
 
        private SessionManager() {
        }
@@ -20,13 +15,13 @@ public class SessionManager extends Thread{
         return manager;
        }
 
-       public void add(Session t) {
+       public static void add(Session t) {
         synchronized(manager) {
             sessionLogger.put(t, t);
         }
        }
 
-       public boolean contains(String email, String token) {
+       public static boolean contains(String email, String token) {
         synchronized(sessionLogger) {
             Session dummy = new Session(email, token);
             if (sessionLogger.containsKey(dummy)) {

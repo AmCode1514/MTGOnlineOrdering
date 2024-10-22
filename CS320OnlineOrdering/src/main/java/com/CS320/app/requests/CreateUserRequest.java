@@ -19,4 +19,9 @@ public class CreateUserRequest extends Request{
         DatabaseRequestExecutor exec = new DatabaseRequestExecutor();
         return exec.addUser(firstName, lastName, email, points, password) ? new CreateUserResponse(true) : new CreateUserResponse(false);
     }
+
+    @Override
+    public void setIP(String ip) {
+        super.ip = ip;
+    }
 }

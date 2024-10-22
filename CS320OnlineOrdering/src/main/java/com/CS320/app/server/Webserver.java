@@ -2,11 +2,14 @@ package com.CS320.app.server;
 
 import java.util.concurrent.ConcurrentLinkedDeque;
 
+import com.CS320.app.requests.AuthenticationResponse;
 import com.CS320.app.requests.CreateUserRequest;
+import com.CS320.app.requests.LogInRequest;
 import com.CS320.app.requests.Request;
 import com.CS320.app.requests.Response;
 
 import io.javalin.Javalin;
+import io.javalin.http.Context;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.io.IOException;
@@ -23,17 +26,26 @@ public class WebServer {
         app = Javalin.create();
         sessionManager = SessionManager.getInstance();
         processRESTfullAPIRequests(app);
+        Thread sessionThread = sessionManager;
+        sessionThread.start();
     }
 
     private void processRESTfullAPIRequests(Javalin app) {
-        app.post("/api/LogIn", ctx -> {});
-        app.post("/api/CookieAuth", ctx -> {});
-        app.post("/api/CreateUser", ctx -> {
-            String response = processHTTPRequest(ctx.body(), CreateUserRequest.class);
+        app.post("/api/LogIn", ctx -> {
+            String response = processHTTPRequest(ctx, LogInRequest.class, true);
             if (response == null) {
                 ctx.status(500);
-                //add appropriate headers later
-                ctx.result("Failed");
+            }
+            else {
+                ctx.result(response);
+            }
+
+        });
+        app.post("/api/CookieAuth", ctx -> {});
+        app.post("/api/CreateUser", ctx -> {
+            String response = processHTTPRequest(ctx, CreateUserRequest.class, false);
+            if (response == null) {
+                ctx.status(500);
             }
             else {
                 ctx.result(response);
@@ -44,14 +56,22 @@ public class WebServer {
         app.start(port);
     }
 
-    private String processHTTPRequest(String body, Type classType) {
+    private String processHTTPRequest(Context ctx, Type classType, boolean isAuthentication) {
         try {
+            String body = ctx.body();
             JsonValidator.validate(body);
             Gson gson = new Gson();
             Request req = gson.fromJson(body, classType);
+            req.setIP(ctx.ip());
+            if (isAuthentication) {
+                AuthenticationResponse res = (AuthenticationResponse) req.buildResponse();
+                ctx.cookie("Session", res.getCookie());
+                return gson.toJson(res);
+            }
+            else {
             Response res = req.buildResponse();
             return gson.toJson(res);
-
+            }
         }
         catch (IOException e) {
             e.printStackTrace();

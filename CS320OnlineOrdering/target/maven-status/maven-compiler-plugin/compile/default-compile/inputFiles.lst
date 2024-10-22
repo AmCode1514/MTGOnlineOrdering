@@ -1,8 +1,8 @@
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\CreateUserResponse.java
+C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\AuthenticationResponse.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\database\Database.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\server\WebServer.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\server\SessionManager.java
-C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\server\JsonParsing.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\server\Main.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\server\JsonValidator.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\Response.java
@@ -10,8 +10,9 @@ C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\database\DatabaseC
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\database\DatabaseRequestExecutor.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\Request.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\CreateUserRequest.java
-C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\misc\SessionComparator.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\AuthenticationRequest.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\server\Session.java
+C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\server\TokenGenerator.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\server\RequestHandler.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\LogInRequest.java
+C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\LogInResponse.java
