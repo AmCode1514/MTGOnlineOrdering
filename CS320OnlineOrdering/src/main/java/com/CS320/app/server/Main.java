@@ -15,7 +15,6 @@ public class Main {
         // var app = Javalin.create(/*config*/)
         //     .get("/", ctx -> ctx.result("Hello World"))
         //     .start(7070);
-        WebServer server = WebServer.getInstance();
-        server.start();
+        WebServer server = new WebServer(7070);
     }
 }

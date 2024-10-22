@@ -38,7 +38,7 @@ public class Database{
             Statement query = conn.createStatement();
             )
             {
-                return query.executeUpdate(sql) > 1 ? true : false;
+                return query.executeUpdate(sql) >= 1 ? true : false;
 
 
             }catch (SQLException e){

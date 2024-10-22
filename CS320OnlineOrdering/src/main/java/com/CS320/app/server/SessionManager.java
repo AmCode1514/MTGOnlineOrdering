@@ -1,5 +1,6 @@
 package com.CS320.app.server;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.PriorityQueue;
@@ -10,8 +11,7 @@ import com.CS320.app.misc.SessionComparator;
 public class SessionManager extends Thread{
 
        private static SessionManager manager = new SessionManager();
-       PriorityQueue<Session> queue = new PriorityQueue<Session>(new SessionComparator());
-       Set<Session> sessionLogger = new HashSet<Session>();
+        HashMap<Session, Session> sessionLogger = new HashMap<Session, Session>();
 
        private SessionManager() {
        }
@@ -22,31 +22,30 @@ public class SessionManager extends Thread{
 
        public void add(Session t) {
         synchronized(manager) {
-            sessionLogger.add(t);
-            queue.add(t);
+            sessionLogger.put(t, t);
         }
        }
 
        public boolean contains(String email, String token) {
-        synchronized(queue) {
-            if (sessionLogger.contains(new Session(email, token))) {
+        synchronized(sessionLogger) {
+            Session dummy = new Session(email, token);
+            if (sessionLogger.containsKey(dummy)) {
+                sessionLogger.get(dummy).updateActivity();
                 return true;
             }
             return false;
         }
        }
-
        @Override
        public void start() {
         while(true) {
             try {
                 Thread.sleep(1800000);
-                synchronized(queue) {
-                    Iterator<Session> iter = queue.iterator();
+                synchronized(sessionLogger) {
+                    Iterator<Session> iter = sessionLogger.values().iterator();
                     while (iter.hasNext()) {
                         Session currSession = iter.next();
                         if (currSession.timeSinceActivity() > 7600000) {
-                            queue.remove(currSession);
                             sessionLogger.remove(currSession);
                             System.out.println(String.format("Removed session with code \"%s\"", String.valueOf(currSession.hashCode())));
                         }
