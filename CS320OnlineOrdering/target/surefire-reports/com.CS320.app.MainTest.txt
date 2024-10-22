@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.CS320.app.MainTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.062 s <<< FAILURE! -- in com.CS320.app.MainTest
-com.CS320.app.MainTest.shouldAnswerWithTrue -- Time elapsed: 1.022 s <<< FAILURE!
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.162 s <<< FAILURE! -- in com.CS320.app.MainTest
+com.CS320.app.MainTest.shouldAnswerWithTrue -- Time elapsed: 0.140 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
