@@ -4,6 +4,7 @@ C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\Authentic
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\database\Database.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\server\WebServer.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\server\SessionManager.java
+C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\misc\RequestResources\ResourceLoader.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\server\Main.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\CheckoutResponse.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\server\JsonValidator.java
@@ -11,14 +12,13 @@ C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\Response.
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\database\DatabaseCredential.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\database\DatabaseRequestExecutor.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\Request.java
-C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\LogOutResponse.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\CreateUserRequest.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\GetAvailableItemsRequest.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\AuthenticationRequest.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\server\Session.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\server\TokenGenerator.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\server\RequestHandler.java
-C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\LogOutRequest.java
+C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\misc\Order.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\CheckoutRequest.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\LogInRequest.java
 C:\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\LogInResponse.java

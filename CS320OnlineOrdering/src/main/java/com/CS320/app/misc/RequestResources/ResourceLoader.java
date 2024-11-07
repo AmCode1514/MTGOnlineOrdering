@@ -14,7 +14,7 @@ public class ResourceLoader {
     }
     public static String[][] getItems() {
         File starting = new File(System.getProperty("user.dir"));
-        File items = new File(starting,"/src/main/java/com/CS320/app/requests/RequestResources/Items.csv");
+        File items = new File(starting,"/src/main/java/com/CS320/app/misc/RequestResources/Items.csv");
         try {
         FileInputStream itemStream = new FileInputStream(items);
         Scanner itemScanner = new Scanner(itemStream);
