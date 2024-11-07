@@ -6,7 +6,7 @@ import java.util.Iterator;
 public class SessionManager extends Thread{
 
        private static SessionManager manager = new SessionManager();
-       private static HashMap<Session, Session> sessionLogger = new HashMap<Session, Session>();
+       private static HashMap<String, Session> sessionLogger = new HashMap<String, Session>();
 
        private SessionManager() {
        }
@@ -15,17 +15,23 @@ public class SessionManager extends Thread{
         return manager;
        }
 
-       public static void add(Session t) {
+       public static void add(String token, Session t) {
         synchronized(manager) {
-            sessionLogger.put(t, t);
+            sessionLogger.put(token, t);
         }
        }
 
-       public static boolean contains(String email, String token) {
+       public static Session get(String token) {
+        synchronized(manager) {
+            return sessionLogger.get(token);
+        }
+       }
+
+       public static boolean contains(String token) {
+        //this isn't secure, would have to replace with guava sha 256 or another sha library/implementation
         synchronized(sessionLogger) {
-            Session dummy = new Session(email, token);
-            if (sessionLogger.containsKey(dummy)) {
-                sessionLogger.get(dummy).updateActivity();
+            if (sessionLogger.containsKey(token)) {
+                sessionLogger.get(token).updateActivity();
                 return true;
             }
             return false;
