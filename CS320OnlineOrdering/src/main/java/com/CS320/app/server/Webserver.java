@@ -3,6 +3,7 @@ package com.CS320.app.server;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 import com.CS320.app.requests.AuthenticationResponse;
+import com.CS320.app.requests.CheckoutRequest;
 import com.CS320.app.requests.CreateUserRequest;
 import com.CS320.app.requests.LogInRequest;
 import com.CS320.app.requests.Request;
@@ -10,7 +11,6 @@ import com.CS320.app.requests.Response;
 
 import io.javalin.Javalin;
 import io.javalin.http.Context;
-import jakarta.servlet.http.HttpServletRequest;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -41,7 +41,15 @@ public class WebServer {
             }
 
         });
-        app.post("/api/CookieAuth", ctx -> {});
+        app.post("/api/Checkout", ctx -> {
+            String response = processHTTPRequest(ctx, CheckoutRequest.class, true);
+            if (response == null) {
+                ctx.status(500);
+            }
+            else {
+                ctx.result(response);
+            }
+        });
         app.post("/api/CreateUser", ctx -> {
             String response = processHTTPRequest(ctx, CreateUserRequest.class, false);
             if (response == null) {

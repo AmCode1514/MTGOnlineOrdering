@@ -18,14 +18,9 @@ public class LogInRequest extends Request{
         DatabaseRequestExecutor exec = new DatabaseRequestExecutor();
         if (exec.signInSignal(email, password)) {
             String sessionToken = TokenGenerator.generateRandomHexStringOfLength(16);
-            SessionManager.add(new Session(email, sessionToken));
+            SessionManager.add(sessionToken, new Session(super.ip, sessionToken, email));
             return new LogInResponse(sessionToken, true);
         }
         return null;
-    }
-
-    @Override
-    public void setIP(String ip) {
-        super.ip = ip;
     }
 }

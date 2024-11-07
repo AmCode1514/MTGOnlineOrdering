@@ -5,8 +5,8 @@ public abstract class Request{
     protected String requestType;
     protected String ip;
 
-    public Response buildResponse() {
-        return null;
+    public abstract Response buildResponse();
+    public void setIP(String ip) {
+        this.ip = ip;
     }
-    public abstract void setIP(String ip);
 }
