@@ -83,7 +83,9 @@ public class WebServer {
             req.setIP(ctx.ip());
             if (isAuthentication) {
                 AuthenticationResponse res = (AuthenticationResponse) req.buildResponse();
-                ctx.cookie("Session", res.getCookie());
+                if (res != null) {
+                    ctx.cookie("Session", res.getCookie());
+                }
                 return gson.toJson(res);
             }
             else {

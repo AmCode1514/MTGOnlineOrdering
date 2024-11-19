@@ -29,6 +29,6 @@ public class LogInRequest extends Request{
             SessionManager.add(sessionToken, new Session(super.ip, sessionToken, email));
             return new LogInResponse(sessionToken, true);
         }
-        return null;
+        return new LogInResponse("null", false);
     }
 }
