@@ -34,7 +34,7 @@ public class Database{
     public boolean createUser(String sql) {
         try(
             // connect to the database and query
-            Connection conn = DriverManager.getConnection(DatabaseCredential.getUrl(),DatabaseCredential.getUser(), DatabaseCredential.getPassword());
+            Connection conn = DriverManager.getConnection(DatabaseCredential.getUrl(), DatabaseCredential.getUser(), DatabaseCredential.getPassword());
             Statement query = conn.createStatement();
             )
             {

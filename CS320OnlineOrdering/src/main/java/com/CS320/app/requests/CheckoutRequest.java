@@ -18,7 +18,7 @@ public class CheckoutRequest extends AuthenticationRequest {
         if (token == null) {
             authenticatedWithToken = false;
             status = "RedirectLogIn";
-            return new CheckoutResponse(status, authenticatedWithToken);
+            return new CheckoutResponse(status, authenticatedWithToken, 0.0);
         }
         else {
             if (SessionManager.contains(token)) {
@@ -28,20 +28,21 @@ public class CheckoutRequest extends AuthenticationRequest {
                 String[][] items = ResourceLoader.getItems();
                 for (int i = 0; i < itemNames.length; ++i) {
                     for (int j = 0; j < items.length; ++j) {
-                        if (itemNames[0].equals(items[j][0])) {
+                        if (itemNames[i].equals(items[j][0])) {
                             orderDetails.add(itemNames[0]);
                             total += Double.valueOf(items[j][1]);
                         }
                     }
                 }
+                //do payment processing
                 SessionManager.get(token).setOrder(new Order(orderDetails, total, orderDetails.size()));
                 status = "OrderPlaced";
-                return new CheckoutResponse(status, authenticatedWithToken);
+                return new CheckoutResponse(status, authenticatedWithToken, total);
             }
             else {
                 status = "TokenInvalid";
                 authenticatedWithToken = false;
-                return new CheckoutResponse(status, authenticatedWithToken);
+                return new CheckoutResponse(status, authenticatedWithToken, 0.0);
             }
         }
     }

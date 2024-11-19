@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 import com.CS320.app.requests.AuthenticationResponse;
 import com.CS320.app.requests.CheckoutRequest;
 import com.CS320.app.requests.CreateUserRequest;
+import com.CS320.app.requests.GetAvailableItemsRequest;
 import com.CS320.app.requests.LogInRequest;
 import com.CS320.app.requests.Request;
 import com.CS320.app.requests.Response;
@@ -42,7 +43,16 @@ public class WebServer {
 
         });
         app.post("/api/Checkout", ctx -> {
-            String response = processHTTPRequest(ctx, CheckoutRequest.class, true);
+            String response = processHTTPRequest(ctx, CheckoutRequest.class, false);
+            if (response == null) {
+                ctx.status(500);
+            }
+            else {
+                ctx.result(response);
+            }
+        });
+        app.post("/api/Available", ctx -> {
+            String response = processHTTPRequest(ctx, GetAvailableItemsRequest.class, false);
             if (response == null) {
                 ctx.status(500);
             }

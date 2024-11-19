@@ -37,6 +37,18 @@ public class SessionManager extends Thread{
             return false;
         }
        }
+       public static boolean removeByEmail(String email) {
+        synchronized(sessionLogger) {
+        for (String t : sessionLogger.keySet()) {
+            if (sessionLogger.get(t).getEmail().equals(email)) {
+                sessionLogger.remove(t);
+                return true;
+            }
+        }
+    }
+        return false;
+    }
+
        @Override
        public void start() {
         while(true) {

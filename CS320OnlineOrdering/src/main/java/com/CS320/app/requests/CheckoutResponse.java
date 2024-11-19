@@ -1,10 +1,12 @@
 package com.CS320.app.requests;
 
 public class CheckoutResponse extends AuthenticationResponse {
-    private boolean authenticated;
     private String status;
-    public CheckoutResponse(String status, boolean authenticated) {
+    private double chargedAmount;
+    public CheckoutResponse(String status, boolean authenticated, double total) {
         this.status = status;
-        this.authenticated = authenticated;
+        super.authenticated = authenticated;
+        chargedAmount = total;
+
     }
 }
