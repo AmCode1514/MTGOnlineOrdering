@@ -19,6 +19,9 @@ public class Session {
     public long timeSinceActivity() {
         return System.currentTimeMillis() - time;
     }
+    public String getEmail() {
+        return email;
+    }
     public void updateActivity() {
         time = System.currentTimeMillis();
     }
@@ -28,7 +31,7 @@ public class Session {
     }
     public void setOrder(Order order) throws ArrayIndexOutOfBoundsException{
         for(int i = 0; i < orders.length; ++i) {
-            if (orders[i] != null) {
+            if (orders[i] == null) {
                 orders[i] = order;
                 return;
             }
