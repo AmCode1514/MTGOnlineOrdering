@@ -23,6 +23,7 @@ public class CheckoutRequest extends AuthenticationRequest {
         else {
             if (SessionManager.contains(token)) {
                 authenticatedWithToken = true;
+                SessionManager.get(token).updateActivity();
                 ArrayList<String> orderDetails = new ArrayList<String>();
                 double total = 0.0;
                 String[][] items = ResourceLoader.getItems();
