@@ -12,9 +12,9 @@ public class Card {
     
     private Prices prices;
 
-    private Card() {
+    public Card(String name) {
+        this.name = name;
     }
-
     public String getName() {
         return name;
     }

@@ -1,4 +1,21 @@
 -------------------------------------------------------------------------------
 Test set: com.CS320.app.GetAvailableItemsRequestTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.081 s -- in com.CS320.app.GetAvailableItemsRequestTest
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.037 s <<< FAILURE! -- in com.CS320.app.GetAvailableItemsRequestTest
+com.CS320.app.GetAvailableItemsRequestTest.testScannerOutput -- Time elapsed: 0.023 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: array contents differ at index [1][1], expected: <5.00> but was: <3.00>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertArrayEquals.failArraysNotEqual(AssertArrayEquals.java:440)
+	at org.junit.jupiter.api.AssertArrayEquals.assertArrayElementsEqual(AssertArrayEquals.java:389)
+	at org.junit.jupiter.api.AssertArrayEquals.assertArrayEquals(AssertArrayEquals.java:346)
+	at org.junit.jupiter.api.AssertArrayEquals.assertArrayElementsEqual(AssertArrayEquals.java:355)
+	at org.junit.jupiter.api.AssertArrayEquals.assertArrayEquals(AssertArrayEquals.java:346)
+	at org.junit.jupiter.api.AssertArrayEquals.assertArrayEquals(AssertArrayEquals.java:159)
+	at org.junit.jupiter.api.AssertArrayEquals.assertArrayEquals(AssertArrayEquals.java:155)
+	at org.junit.jupiter.api.Assertions.assertArrayEquals(Assertions.java:1456)
+	at com.CS320.app.GetAvailableItemsRequestTest.testScannerOutput(GetAvailableItemsRequestTest.java:17)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+

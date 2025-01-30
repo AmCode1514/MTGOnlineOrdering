@@ -23,7 +23,6 @@ public class ScryFallParser {
             ObjectMapper map = new ObjectMapper();
             map.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
             CardHolder cardList =  map.readValue(Files.readAllBytes(Paths.get("BulkData.json")), CardHolder.class);
-            Collections.sort(cardList.getCards(), new CardComparator());
             return cardList; 
         }
         catch(IOException e) {
