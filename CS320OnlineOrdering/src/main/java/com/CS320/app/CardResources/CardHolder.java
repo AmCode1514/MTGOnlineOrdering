@@ -45,6 +45,7 @@ public class CardHolder {
     //This find function defines a block of cards to look at based on the prefix mapping, and then performs a binary search over it. Some prefixes my have 100s or thousands of elements. Thus, this improves search speed for such cases
     //This function implements a three way hybrid approach of prefix mapping, linear, and binary search. Linear search improves performance for very small blocks.
     public Card[] find(String name) {
+      name = name.toLowerCase();
       ArrayList<Card> clientCards = new ArrayList<>();
       ListBlock blockByPrefix = prefixMap.get(name.substring(0, 2));
       if (blockByPrefix == null) {
