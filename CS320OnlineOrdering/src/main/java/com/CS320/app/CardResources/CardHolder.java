@@ -69,7 +69,7 @@ public class CardHolder {
     }
     //this helper function performs the binary search using the inbuilt binary search array algorithm. end indices are exclusive which is why 1 is added.
     private int bestMatchIndex(Card[] search, ListBlock block, String name) {
-      int index = Arrays.binarySearch(search, block.startIndex, block.endIndex + 1, new Card(name) , new CardComparator());
+      int index = Arrays.binarySearch(search, block.startIndex, block.endIndex + 1, Card.getCard(name), new CardComparator());
       return index;
     }
 

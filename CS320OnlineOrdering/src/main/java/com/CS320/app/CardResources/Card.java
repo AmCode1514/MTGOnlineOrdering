@@ -12,8 +12,8 @@ public class Card {
     
     private Prices prices;
 
-    public Card(String name) {
-        this.name = name;
+    public Card() {
+        this.name = name.toLowerCase();
     }
     public String getName() {
         return name;
@@ -26,5 +26,10 @@ public class Card {
     }
     public boolean getFoil() {
         return foil;
+    }
+    public static Card getCard(String name) {
+        Card card = new Card();
+        card.name = name.toLowerCase();
+        return card;
     }
 }
