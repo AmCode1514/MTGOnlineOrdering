@@ -13,15 +13,31 @@ public class CardHolder {
     private List<Card> cards;
     private transient HashMap<String, ListBlock> prefixMap;
     private transient Card[] searchArray;
+    private transient boolean initialized = false;
 
     @JsonCreator
     //Cardholder is instantiated by Jackson and executes a sort and then a two character prefix mapping of the resultant list. This allows easy indexing to relevant sections of the array. 
     //Additionally, each of the prefixes are bound to a block, this allows for the easy use of the inbuilt binary search function in arrays. 
-    public CardHolder() {
+    private CardHolder() {
+    }
+    //invoked after deserialization to set up object.
+    public void init() {
+      if (initialized) {
+        return;
+      }
+      for (int i = 0; i < cards.size(); ++i) {
+        cards.get(i).sendNameToLowerCase();
+        if (cards.get(i).getName().length() == 1) {
+          cards.remove(i);
+        }
+      }
       Collections.sort(cards, new CardComparator());
       ListBlock last = new ListBlock(0);
       prefixMap = new HashMap<>();
       for (int i = 0; i < cards.size(); ++i) {
+        // if (getCardNameAtIndex(i).length() == 1) {
+        //   continue;
+        // } 
         if (!prefixMap.containsKey(getCardNameAtIndex(i).substring(0, 2))) {
           ListBlock curr = new ListBlock(i);
           prefixMap.put(getCardNameAtIndex(i).substring(0,2), curr);
@@ -31,8 +47,8 @@ public class CardHolder {
       }
       last.setEndIndex(cards.size() - 1);
       searchArray = cards.toArray(new Card[0]);
+      initialized = true;
     }
-
     public List<Card> getCards() {
       return cards;
     }

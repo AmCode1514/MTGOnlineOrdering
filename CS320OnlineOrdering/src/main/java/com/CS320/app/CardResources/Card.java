@@ -12,7 +12,9 @@ public class Card {
     
     private Prices prices;
 
-    public Card() {
+    private Card() {
+    }
+    public void sendNameToLowerCase() {
         this.name = name.toLowerCase();
     }
     public String getName() {
@@ -32,4 +34,9 @@ public class Card {
         card.name = name.toLowerCase();
         return card;
     }
+    // @Override
+    // public boolean equals(Object obj) {
+    //     Card t = (Card) obj;
+    //     return name.equals(t.name);
+    // }
 }
