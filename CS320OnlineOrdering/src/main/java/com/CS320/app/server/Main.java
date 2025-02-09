@@ -15,9 +15,14 @@ public class Main {
         // var app = Javalin.create(/*config*/)
         //     .get("/", ctx -> ctx.result("Hello World"))
         //     .start(7070);
-        WebServer server = new WebServer(7070);
-
+        try {
+          WebServer server = new WebServer(7070);  
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            //if this is reached a critical error has occurred and the system should exit.
+            System.exit(1);
+        }
         
-
     }
 }

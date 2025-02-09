@@ -18,17 +18,29 @@ import java.lang.reflect.Type;
 import com.google.gson.Gson;
 
 public class WebServer {
-    private int port;
-    Javalin app;
-    SessionManager sessionManager;
+    private final Controller webserverThreadController;
+    private final int port;
 
-    public WebServer(int port) {
+    // public WebServer(int port) {
+    //     this.port = port;
+    //     app = Javalin.create();
+    //     sessionManager = SessionManager.getInstance();
+    //     processRESTfullAPIRequests(app);
+    //     Thread sessionThread = sessionManager;
+    //     sessionThread.start();
+    // }
+
+    public WebServer(int port) throws Exception {
         this.port = port;
-        app = Javalin.create();
-        sessionManager = SessionManager.getInstance();
+        Javalin app = Javalin.create();
+        SessionManager sessionManager = SessionManager.getInstance();
         processRESTfullAPIRequests(app);
-        Thread sessionThread = sessionManager;
-        sessionThread.start();
+        try {
+            webserverThreadController = new Controller(app, sessionManager);
+        }
+        catch(Exception e) {
+            throw e;
+        }
     }
 
     private void processRESTfullAPIRequests(Javalin app) {
@@ -74,6 +86,8 @@ public class WebServer {
         app.start(port);
     }
 
+
+    //NEEDS REFACTORED, this function is encapsulating the function of potentially multiple subclasses, and needs to be rewritten as its own class/classes. 
     private String processHTTPRequest(Context ctx, Type classType, boolean isAuthentication) {
         try {
             String body = ctx.body();
@@ -82,14 +96,15 @@ public class WebServer {
             Request req = gson.fromJson(body, classType);
             req.setIP(ctx.ip());
             if (isAuthentication) {
-                AuthenticationResponse res = (AuthenticationResponse) req.buildResponse();
+                Response completedResponse = webserverThreadController.controlFlow(req);
+                AuthenticationResponse res = (AuthenticationResponse) completedResponse;
                 if (res != null) {
                     ctx.cookie("Session", res.getCookie());
                 }
                 return gson.toJson(res);
             }
             else {
-            Response res = req.buildResponse();
+            Response res = webserverThreadController.controlFlow(req);
             return gson.toJson(res);
             }
         }
