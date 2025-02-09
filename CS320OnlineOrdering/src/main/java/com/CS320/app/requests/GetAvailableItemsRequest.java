@@ -1,10 +1,5 @@
 package com.CS320.app.requests;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 import com.CS320.app.misc.RequestResources.ResourceLoader;
 
