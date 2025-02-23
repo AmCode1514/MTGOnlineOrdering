@@ -9,8 +9,10 @@ import java.util.logging.SimpleFormatter;
 
 
 import com.CS320.app.CardResources.CardListAccessor;
+import com.CS320.app.requests.AdministratorRequest;
 import com.CS320.app.requests.Request;
 import com.CS320.app.requests.Response;
+import com.CS320.app.requests.Handlers.RequestHandler;
 
 import io.javalin.Javalin;
 
@@ -45,7 +47,7 @@ public class Controller {
      *
      * 
      */
-    public Response controlFlow(Request req) {
+    public Response baseControlFlow(RequestHandler handler) {
         while (haltThreads) {
             synchronized(this) {
                 try {
@@ -58,12 +60,16 @@ public class Controller {
             }
         }
         numberOfActiveThreads.incrementAndGet();
-        Response builtResponse = req.buildResponse();
+        Response builtResponse = handler.getRequest().buildResponse();
         numberOfActiveThreads.decrementAndGet();
         return builtResponse;
     }
 
-    private void haltServerRequestsAndUpdateCardList() {
+    //TODO, halt all tasks, prevent multiple administrator requests that encounter a readers writers issue from executing concurrently, otherwise allow multiple non-conflicting executing threads.
+    public Response administratorControlFlow(RequestHandler handler) {
+        return null;
+    }
+    private synchronized void haltServerRequestsAndUpdateCardList() {
         haltThreads = true;
         while (numberOfActiveThreads.get() != 0) {
             Thread.onSpinWait();
@@ -73,10 +79,8 @@ public class Controller {
         } catch (IOException e) {
             logger.log(Level.SEVERE, e.getMessage() + '\n' + e.getStackTrace());
         }
-        synchronized(this) {
-            haltThreads = false;
-            notifyAll();
-        }
+        haltThreads = false;
+        notifyAll();
     }
 
     private void haltServerRequests() {

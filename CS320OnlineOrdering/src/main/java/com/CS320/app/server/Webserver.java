@@ -2,6 +2,7 @@ package com.CS320.app.server;
 
 import java.util.concurrent.ConcurrentLinkedDeque;
 
+import com.CS320.app.Exceptions.SchemaException;
 import com.CS320.app.requests.AuthenticationResponse;
 import com.CS320.app.requests.CheckoutRequest;
 import com.CS320.app.requests.CreateUserRequest;
@@ -21,26 +22,18 @@ public class WebServer {
     private final Controller webserverThreadController;
     private final int port;
 
-    // public WebServer(int port) {
-    //     this.port = port;
-    //     app = Javalin.create();
-    //     sessionManager = SessionManager.getInstance();
-    //     processRESTfullAPIRequests(app);
-    //     Thread sessionThread = sessionManager;
-    //     sessionThread.start();
-    // }
 
     public WebServer(int port) throws Exception {
         this.port = port;
         Javalin app = Javalin.create();
         SessionManager sessionManager = SessionManager.getInstance();
-        processRESTfullAPIRequests(app);
         try {
             webserverThreadController = new Controller(app, sessionManager);
         }
         catch(Exception e) {
             throw e;
         }
+        processRESTfullAPIRequests(app);
     }
 
     private void processRESTfullAPIRequests(Javalin app) {
@@ -83,11 +76,16 @@ public class WebServer {
             }
         );
         app.get("/", ctx -> ctx.result("Hello World"));
+        app.exception(SchemaException.class, (exception, ctx) -> {
+
+        }
+        );
         app.start(port);
     }
 
 
     //NEEDS REFACTORED, this function is encapsulating the function of potentially multiple subclasses, and needs to be rewritten as its own class/classes. 
+
     private String processHTTPRequest(Context ctx, Type classType, boolean isAuthentication) {
         try {
             String body = ctx.body();
@@ -116,5 +114,34 @@ public class WebServer {
         }
         return null;
     }
+
+    // private String processHTTPRequest(Context ctx, Type classType, boolean isAuthentication) {
+    //     try {
+    //         String body = ctx.body();
+    //         JsonValidator.validate(body);
+    //         Gson gson = new Gson();
+    //         Request req = gson.fromJson(body, classType);
+    //         req.setIP(ctx.ip());
+    //         if (isAuthentication) {
+    //             Response completedResponse = webserverThreadController.controlFlow(req);
+    //             AuthenticationResponse res = (AuthenticationResponse) completedResponse;
+    //             if (res != null) {
+    //                 ctx.cookie("Session", res.getCookie());
+    //             }
+    //             return gson.toJson(res);
+    //         }
+    //         else {
+    //         Response res = webserverThreadController.controlFlow(req);
+    //         return gson.toJson(res);
+    //         }
+    //     }
+    //     catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+    //     catch(Exception e) {
+    //         e.printStackTrace();
+    //     }
+    //     return null;
+    // }
 
 }
