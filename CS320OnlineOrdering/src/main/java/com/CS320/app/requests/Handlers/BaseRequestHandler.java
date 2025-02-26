@@ -44,12 +44,6 @@ public class BaseRequestHandler extends RequestHandler {
     }
 
     @Override
-    public RequestHandler injectRequiredResources(ServerResourcePackage pkg) {
-        this.pkg = pkg;
-        return this;
-    }
-
-    @Override
     public byte getRequiredResources() {
         return requiredResources;
     }

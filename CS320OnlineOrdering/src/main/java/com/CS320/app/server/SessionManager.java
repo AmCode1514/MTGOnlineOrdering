@@ -38,7 +38,7 @@ public class SessionManager extends Thread{
     }
 
        @Override
-       public void start() {
+       public void run() {
         while(true) {
             try {
                 Thread.sleep(1800000);

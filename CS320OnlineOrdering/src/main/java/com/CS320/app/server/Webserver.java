@@ -40,7 +40,7 @@ public class WebServer {
 
     private void processRESTfullAPIRequests(Javalin app) {
         app.post("/api/LogIn", ctx -> {
-            String response = sendToJson(new BaseRequestHandler(LogInRequest.class, ctx).getResponse());
+            String response = sendToJson(webserverThreadController.baseControlFlow(new BaseRequestHandler(LogInRequest.class, ctx)));
             if (response == null) {
                 ctx.status(500);
             }
@@ -49,7 +49,7 @@ public class WebServer {
             }
         });
         app.post("/api/Checkout", ctx -> {
-            String response = sendToJson(new BaseRequestHandler(CheckoutRequest.class, ctx).getResponse());
+            String response = sendToJson(webserverThreadController.baseControlFlow(new BaseRequestHandler(CheckoutRequest.class, ctx)));
             if (response == null) {
                 ctx.status(500);
             }
@@ -58,7 +58,7 @@ public class WebServer {
             }
         });
         app.post("/api/Available", ctx -> {
-            String response = sendToJson(new BaseRequestHandler(GetAvailableItemsRequest.class, ctx).getResponse());
+            String response = sendToJson(webserverThreadController.baseControlFlow(new BaseRequestHandler(GetAvailableItemsRequest.class, ctx)));
             if (response == null) {
                 ctx.status(500);
             }
@@ -67,7 +67,7 @@ public class WebServer {
             }
         });
         app.post("/api/Available/Cards", ctx -> {
-            String response = sendToJson(new BaseRequestHandler(SearchCardsRequest.class, ctx).getResponse());
+            String response = sendToJson(webserverThreadController.baseControlFlow(new BaseRequestHandler(SearchCardsRequest.class, ctx)));
             if (response == null) {
                 ctx.status(500);
             }
@@ -76,7 +76,7 @@ public class WebServer {
             }
         });
         app.post("/api/CreateUser", ctx -> {
-            String response = sendToJson(new BaseRequestHandler(CreateUserRequest.class, ctx).getResponse());
+            String response = sendToJson(webserverThreadController.baseControlFlow(new BaseRequestHandler(CreateUserRequest.class,ctx)));
             if (response == null) {
                 ctx.status(500);
             }

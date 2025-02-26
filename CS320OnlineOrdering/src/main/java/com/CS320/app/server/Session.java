@@ -7,6 +7,7 @@ public class Session {
     private String token;
     private String email;
     private long time;
+    private boolean isAdmin;
     private Order[] orders = new Order[4];
 
     public Session(String ip, String token, String email) {
@@ -14,6 +15,7 @@ public class Session {
         this.token = token;
         this.email = email;
         this.time = System.currentTimeMillis();
+        this.isAdmin = isAdmin;
     }
 
     public long timeSinceActivity() {

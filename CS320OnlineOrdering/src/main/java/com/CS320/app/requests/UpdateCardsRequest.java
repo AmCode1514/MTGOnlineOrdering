@@ -3,6 +3,7 @@ package com.CS320.app.requests;
 import com.CS320.app.misc.ServerResourcePackage;
 
 public class UpdateCardsRequest extends AuthenticationRequest {
+    private String token; 
     private transient ServerResourcePackage pkg;
     public Response buildResponse() {
         try{

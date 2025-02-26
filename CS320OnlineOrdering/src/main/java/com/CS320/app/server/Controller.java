@@ -67,7 +67,8 @@ public class Controller {
         //TODO, this needs refactored to use a try catch that will write errors with the logger. Additionally, that operation should be multithreaded to allow a faster response and prevent slowdown.
         numberOfActiveThreads.incrementAndGet();
         Response builtResponse = handler.injectRequiredResources(buildResourcePackage(handler)).getResponse();
-        handler.setHeaders();
+        /* header functionality to be implemented in the future */
+        //handler.setHeaders();
         numberOfActiveThreads.decrementAndGet();
         return builtResponse;
     }

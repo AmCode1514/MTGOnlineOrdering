@@ -41,7 +41,10 @@ public abstract class RequestHandler {
 
     //assume this function is called before a response is built, failure to do so is undefined behavior.
     public RequestHandler injectRequiredResources(ServerResourcePackage pkg) {
-        this.pkg = pkg;
+        if (request == null) {
+            buildRequest();
+        }
+        request.injectResourcePackage(pkg);
         return this;
     }
 
