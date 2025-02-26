@@ -16,7 +16,7 @@ public class TestCardHolder {
     @Test
     public void basicSearchTest() {
         try {
-            CardHolder test = ScryFallParser.getScryFallParser().parseFromJSONAndSort();
+            CardHolder test = new ScryFallParser().parseFromJSONAndSort();
             assertEquals(test.find("fa")[0].getName(), "xavier sal, infested captain");
         }
         catch(IOException e) {

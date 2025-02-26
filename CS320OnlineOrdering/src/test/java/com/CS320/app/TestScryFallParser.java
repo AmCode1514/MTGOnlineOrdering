@@ -12,7 +12,7 @@ public class TestScryFallParser {
     @Test
     public void testCardOutput() {
         try {
-            assertEquals("Trebcg", ScryFallParser.getScryFallParser().parseFromJSONAndSort().getCards().get(0).getName());
+            assertEquals("Trebcg", new ScryFallParser().parseFromJSONAndSort().getCards().get(0).getName());
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -21,7 +21,7 @@ public class TestScryFallParser {
     @Test
     public void testCardOutput2() {
         try {
-            assertEquals("Trebcg", ScryFallParser.getScryFallParser().parseFromJSONAndSort().getCards().get(0).getPrices().getusd());
+            assertEquals("Trebcg", new ScryFallParser().parseFromJSONAndSort().getCards().get(0).getPrices().getusd());
         }
         catch(Exception e) {
             e.printStackTrace();

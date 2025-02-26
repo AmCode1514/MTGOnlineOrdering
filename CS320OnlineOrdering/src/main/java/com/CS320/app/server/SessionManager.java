@@ -5,25 +5,21 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class SessionManager extends Thread{
 
-       private static SessionManager manager = new SessionManager();
-       private static ConcurrentHashMap<String, Session> sessionLogger = new ConcurrentHashMap<String, Session>();
+       private ConcurrentHashMap<String, Session> sessionLogger = new ConcurrentHashMap<String, Session>();
 
-       private SessionManager() {
+       //could add config options to the constructor... :)
+       public SessionManager() {
        }
 
-       public static SessionManager getInstance() {
-        return manager;
-       }
-
-       public static void add(String token, Session t) {
+       public void add(String token, Session t) {
             sessionLogger.put(token, t);
        }
 
-       public static Session get(String token) {
+       public Session get(String token) {
             return sessionLogger.get(token);
        }
 
-       public static boolean contains(String token) {
+       public boolean contains(String token) {
         //this isn't secure, would have to replace with guava sha 256 or another sha library/implementation
             if (sessionLogger.containsKey(token)) {
                 sessionLogger.get(token).updateActivity();
@@ -31,7 +27,7 @@ public class SessionManager extends Thread{
             }
             return false;
        }
-       public static boolean removeByEmail(String email) {
+       public boolean removeByEmail(String email) {
         for (String t : sessionLogger.keySet()) {
             if (sessionLogger.get(t).getEmail().equals(email)) {
                 sessionLogger.remove(t);

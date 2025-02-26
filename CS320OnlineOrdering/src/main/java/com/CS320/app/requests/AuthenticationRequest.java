@@ -3,12 +3,17 @@ import com.CS320.app.server.Session;
 import com.CS320.app.server.SessionManager;
 public abstract class AuthenticationRequest extends Request {
     protected String token;
+
     protected boolean isAuthenticated = false;
+
     protected Session associatedSession;
-    protected void setAuthenticationStatus() {
-        if (SessionManager.contains(token)) {
+
+    protected SessionManager manager;
+
+    protected void checkAuthenticationStatus() {
+        if (manager.contains(token)) {
             isAuthenticated = true;
-            associatedSession = SessionManager.get(token);
+            associatedSession = manager.get(token);
         }
     }
 }

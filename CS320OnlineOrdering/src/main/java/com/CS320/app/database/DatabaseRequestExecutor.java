@@ -18,7 +18,7 @@ public class DatabaseRequestExecutor {
 
     // this method is adding a new user to the database
     public boolean addUser(String firstname, String Lastname, String Email, String points, String Password ) {
-       String query =  String.format("INSERT INTO Strippas (FirstName, LastName, Email, Points, Password) VALUES ('%s', '%s', '%s', '%s', '%s');", firstname, Lastname, Email, points, database.hashPassword(Password)); 
+       String query =  String.format("INSERT INTO *addName* (FirstName, LastName, Email, Points, Password) VALUES ('%s', '%s', '%s', '%s', '%s');", firstname, Lastname, Email, points, database.hashPassword(Password)); 
        return database.createUser(query); 
     }
 

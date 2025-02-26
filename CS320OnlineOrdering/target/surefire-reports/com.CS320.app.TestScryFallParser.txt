@@ -1,4 +1,30 @@
 -------------------------------------------------------------------------------
 Test set: com.CS320.app.TestScryFallParser
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.087 s -- in com.CS320.app.TestScryFallParser
+Tests run: 2, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 1.377 s <<< FAILURE! -- in com.CS320.app.TestScryFallParser
+com.CS320.app.TestScryFallParser.testCardOutput2 -- Time elapsed: 0.711 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <Trebcg> but was: <3.36>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
+	at com.CS320.app.TestScryFallParser.testCardOutput2(TestScryFallParser.java:24)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+com.CS320.app.TestScryFallParser.testCardOutput -- Time elapsed: 0.664 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <Trebcg> but was: <"ach! hans, run!">
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
+	at com.CS320.app.TestScryFallParser.testCardOutput(TestScryFallParser.java:15)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+

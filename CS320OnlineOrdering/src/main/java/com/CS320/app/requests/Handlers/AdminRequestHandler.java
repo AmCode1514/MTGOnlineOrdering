@@ -4,16 +4,15 @@ import java.lang.reflect.Type;
 
 import com.CS320.app.Exceptions.SchemaException;
 import com.CS320.app.misc.ServerResourcePackage;
-import com.CS320.app.requests.Request;
 import com.google.gson.Gson;
 
 import io.javalin.http.Context;
 
-public class BaseRequestHandler extends RequestHandler {
-    //I will use a byte flag to indicate what resources need to be injected into the request. This could include the sessionmanager(1st bit on the left) and the controller(second bit)
-    private final byte requiredResources = 0b00000101;
+public class AdminRequestHandler extends RequestHandler {
 
-    public BaseRequestHandler(Type classType, Context ctx) {
+     private final byte requiredResources = 0b00000111;
+
+    public AdminRequestHandler(Type classType, Context ctx) {
         super(classType, ctx);
     }
 
@@ -33,6 +32,7 @@ public class BaseRequestHandler extends RequestHandler {
     }
 
     @Override
+
     public void setHeaders() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setHeaders'");
@@ -42,13 +42,6 @@ public class BaseRequestHandler extends RequestHandler {
     protected void buildRequestResponse() {
         response = request.buildResponse();
     }
-
-    @Override
-    public RequestHandler injectRequiredResources(ServerResourcePackage pkg) {
-        this.pkg = pkg;
-        return this;
-    }
-
     @Override
     public byte getRequiredResources() {
         return requiredResources;

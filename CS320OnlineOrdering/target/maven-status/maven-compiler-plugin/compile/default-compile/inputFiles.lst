@@ -1,6 +1,8 @@
 C:\ActualLocalRepo\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\CardResources\Card.java
 C:\ActualLocalRepo\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\CardResources\CardComparator.java
 C:\ActualLocalRepo\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\CardResources\CardHolder.java
+C:\ActualLocalRepo\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\CardResources\CardListAccessor.java
+C:\ActualLocalRepo\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\CardResources\ListBlock.java
 C:\ActualLocalRepo\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\CardResources\Prices.java
 C:\ActualLocalRepo\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\CardResources\ScryFallParser.java
 C:\ActualLocalRepo\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\database\Database.java
@@ -20,6 +22,7 @@ C:\ActualLocalRepo\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\re
 C:\ActualLocalRepo\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\LogInResponse.java
 C:\ActualLocalRepo\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\Request.java
 C:\ActualLocalRepo\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\requests\Response.java
+C:\ActualLocalRepo\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\server\Controller.java
 C:\ActualLocalRepo\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\server\JsonValidator.java
 C:\ActualLocalRepo\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\server\Main.java
 C:\ActualLocalRepo\320Project\CS320OnlineOrdering\src\main\java\com\CS320\app\server\Session.java

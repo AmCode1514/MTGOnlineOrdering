@@ -14,9 +14,8 @@ public class ScryFallParser {
     // Params None
     // Reads the downloaded scryfall json from a filename, parses it into a card object for each entry in the list, then sorts it alphabetically for use in binary search. 
     // returns list of read cards.
-    private static ScryFallParser parser;
 
-    private ScryFallParser() {
+    public ScryFallParser() {
 
     }
     public CardHolder parseFromJSONAndSort() throws IOException {
@@ -34,15 +33,8 @@ public class ScryFallParser {
             throw e;
         }
     }
-    public static ScryFallParser getScryFallParser() {
-        if (parser == null) {
-            //could get config options here.
-            parser = new ScryFallParser();
-        }
-        return parser;
-    }
-    //TODO
-    public static CardHolder downloadAndReparseCardHolder() {
+    //todo
+    public CardHolder downloadAndReparseCardHolder() {
         return null;
     }
 }
