@@ -10,7 +10,6 @@ public class CheckoutRequest extends AuthenticationRequest {
     private String token;
     private String[] itemNames;
     private boolean authenticatedWithToken;
-    private String timeStamp;
     private String status;
 
     @Override
@@ -35,7 +34,7 @@ public class CheckoutRequest extends AuthenticationRequest {
                         }
                     }
                 }
-                //do payment processing
+                //
                 SessionManager.get(token).setOrder(new Order(orderDetails, total, orderDetails.size()));
                 status = "OrderPlaced";
                 return new CheckoutResponse(status, authenticatedWithToken, total);

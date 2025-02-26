@@ -101,6 +101,7 @@ public class CardHolder {
 
     //this function tests if the remainder of the string, aside from the two character prefix, are equal.
     private boolean isRemainderEqual(String match, String card) {
+      //thinking about it, you might actually be able to manipulate the card string and use a hashing algorithm to achieve O(1)
       int minLength = Math.min(match.length(), card.length());
       for (int i = 2; i < minLength; ++i) {
           if (match.charAt(i) != card.charAt(i)) {
