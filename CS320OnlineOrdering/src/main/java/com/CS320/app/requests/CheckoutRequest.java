@@ -3,48 +3,31 @@ package com.CS320.app.requests;
 import java.util.ArrayList;
 
 import com.CS320.app.misc.Order;
-import com.CS320.app.misc.RequestResources.ResourceLoader;
+import com.CS320.app.misc.ServerResourcePackage;
 import com.CS320.app.server.SessionManager;
 
 public class CheckoutRequest extends AuthenticationRequest {
-    private String token;
     private String[] itemNames;
-    private boolean authenticatedWithToken;
     private String status;
 
     @Override
     public Response buildResponse() {
         if (token == null) {
-            authenticatedWithToken = false;
             status = "RedirectLogIn";
-            return new CheckoutResponse(status, authenticatedWithToken, 0.0);
+            return new CheckoutResponse(status, isAuthenticated, 0.0);
         }
-        else {
-            if (SessionManager.contains(token)) {
-                authenticatedWithToken = true;
-                SessionManager.get(token).updateActivity();
-                ArrayList<String> orderDetails = new ArrayList<String>();
-                double total = 0.0;
-                String[][] items = ResourceLoader.getItems();
-                for (int i = 0; i < itemNames.length; ++i) {
-                    for (int j = 0; j < items.length; ++j) {
-                        if (itemNames[i].equals(items[j][0])) {
-                            orderDetails.add(itemNames[0]);
-                            total += Double.valueOf(items[j][1]);
-                        }
-                    }
-                }
-                //
-                SessionManager.get(token).setOrder(new Order(orderDetails, total, orderDetails.size()));
-                status = "OrderPlaced";
-                return new CheckoutResponse(status, authenticatedWithToken, total);
+        checkAuthenticationStatus();
+            if(isAuthenticated) {
+                //this is a placeholder, this code should then create an order with an associated session that can be accessed from the administrator panel, additionally, the associated user should be able to
+                //fetch their own order. 
+                return new CheckoutResponse(status, isAuthenticated, 0);
             }
             else {
                 status = "TokenInvalid";
-                authenticatedWithToken = false;
-                return new CheckoutResponse(status, authenticatedWithToken, 0.0);
+                return new CheckoutResponse(status, isAuthenticated, 0.0);
             }
         }
-    }
+
     
+
 }

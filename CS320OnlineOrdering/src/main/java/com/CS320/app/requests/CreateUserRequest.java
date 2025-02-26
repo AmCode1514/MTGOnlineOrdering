@@ -2,6 +2,7 @@ package com.CS320.app.requests;
 
 import com.CS320.app.database.Database;
 import com.CS320.app.database.DatabaseRequestExecutor;
+import com.CS320.app.misc.ServerResourcePackage;
 
 public class CreateUserRequest extends Request{
     private String firstName;

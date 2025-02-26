@@ -5,31 +5,30 @@ import java.util.logging.Logger;
 
 public class CardListAccessor {
 
-    private static CardHolder holder;
-    static {
+    private CardHolder holder;
+    private ScryFallParser parser;
+
+    public CardListAccessor() {
         try {
-            holder = ScryFallParser.getScryFallParser().parseFromJSONAndSort();
+            parser = new ScryFallParser();
+            holder = parser.parseFromJSONAndSort();
         }
         catch(IOException e) {
             e.printStackTrace();
-            System.exit(1);
+            //System.exit(1);
         }
     }
 
-    private CardListAccessor() {
-
-    }
-
-    public static Card[] getCards(String name) throws IllegalStateException{
+    public Card[] getCards(String name) throws IllegalStateException{
         if (holder == null) {
             throw new IllegalStateException("Card List is uninitialized, improper startup execution likely");
         }
         return holder.find(name);
     }
 
-    public static void parseAndUpdateCardList() throws IOException {
+    public void parseAndUpdateCardList() throws IOException {
         try {
-            holder = ScryFallParser.getScryFallParser().parseFromJSONAndSort();
+            holder = parser.parseFromJSONAndSort();
         }
         catch(IOException e) {
             throw e;

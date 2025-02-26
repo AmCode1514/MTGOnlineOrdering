@@ -9,8 +9,11 @@ import java.util.logging.SimpleFormatter;
 
 
 import com.CS320.app.CardResources.CardListAccessor;
+import com.CS320.app.misc.ServerResourceBuilder;
+import com.CS320.app.misc.ServerResourcePackage;
 import com.CS320.app.requests.Request;
 import com.CS320.app.requests.Response;
+import com.CS320.app.requests.Handlers.RequestHandler;
 
 import io.javalin.Javalin;
 
@@ -21,12 +24,14 @@ public class Controller {
     private final SessionManager sessionTracker;
     private volatile boolean haltThreads;
     private static final Logger logger = Logger.getLogger("Master");
+    private final CardListAccessor cards;
 
     public Controller(Javalin app, SessionManager manager) throws Exception {
         try {
             FileHandler handler = new FileHandler();
             handler.setFormatter(new SimpleFormatter());
             logger.addHandler(handler);
+            cards = new CardListAccessor();
         } catch (IOException e) {
             throw e;
         }
@@ -34,6 +39,8 @@ public class Controller {
         this.runningWebserver = app;
         this.sessionTracker = manager;
         haltThreads = false;
+        Thread t = sessionTracker;
+        t.start();
     }
 
     // don't have a good name for this method since its scope isn't well defined;
@@ -45,7 +52,7 @@ public class Controller {
      *
      * 
      */
-    public Response controlFlow(Request req) {
+    public Response baseControlFlow(RequestHandler handler) {
         while (haltThreads) {
             synchronized(this) {
                 try {
@@ -57,26 +64,49 @@ public class Controller {
                 
             }
         }
+        //TODO, this needs refactored to use a try catch that will write errors with the logger. Additionally, that operation should be multithreaded to allow a faster response and prevent slowdown.
         numberOfActiveThreads.incrementAndGet();
-        Response builtResponse = req.buildResponse();
+        Response builtResponse = handler.injectRequiredResources(buildResourcePackage(handler)).getResponse();
+        /* header functionality to be implemented in the future */
+        //handler.setHeaders();
         numberOfActiveThreads.decrementAndGet();
         return builtResponse;
     }
 
-    private void haltServerRequestsAndUpdateCardList() {
+    //TODO, halt all tasks, prevent multiple administrator requests that encounter a readers writers issue from executing concurrently, otherwise allow multiple non-conflicting executing threads.
+    public Response administratorControlFlow(RequestHandler handler) {
+        Response builtResponse = handler.injectRequiredResources(buildResourcePackage(handler)).getResponse();
+        handler.setHeaders();
+        return builtResponse;
+    }
+
+    public synchronized void haltServerRequestsAndUpdateCardList() {
         haltThreads = true;
         while (numberOfActiveThreads.get() != 0) {
             Thread.onSpinWait();
         }
         try {
-            CardListAccessor.parseAndUpdateCardList();
+            cards.parseAndUpdateCardList();
         } catch (IOException e) {
             logger.log(Level.SEVERE, e.getMessage() + '\n' + e.getStackTrace());
         }
-        synchronized(this) {
-            haltThreads = false;
-            notifyAll();
+        haltThreads = false;
+        notifyAll();
+    }
+
+    private ServerResourcePackage buildResourcePackage(RequestHandler handler) {
+        byte flags = handler.getRequiredResources();
+        ServerResourceBuilder builder = new ServerResourceBuilder();
+        if ((flags & 0b00000001) > 0) {
+            builder.withManager(sessionTracker);
         }
+        if ((flags & 0b00000010) > 0) {
+            builder.withController(this);
+        }
+        if((flags & 0b00000100) > 0) {
+            builder.withCardListAccessor(cards);
+        }
+        return builder.build();
     }
 
     private void haltServerRequests() {

@@ -1,7 +1,7 @@
 package com.CS320.app.requests;
 
 
-import com.CS320.app.misc.RequestResources.ResourceLoader;
+import com.CS320.app.misc.ServerResourcePackage;
 
 public class GetAvailableItemsRequest extends Request {
     public int numRequestedItems;
@@ -15,6 +15,11 @@ public class GetAvailableItemsRequest extends Request {
 
     @Override
     public Response buildResponse() {
-        return new GetAvailableItemsResponse(ResourceLoader.getItems());
+        return null;
+    }
+    @Override
+    public void injectResourcePackage(ServerResourcePackage pkg) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'injectResourcePackage'");
     }
 }
