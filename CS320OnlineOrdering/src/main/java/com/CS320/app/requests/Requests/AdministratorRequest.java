@@ -1,5 +1,6 @@
-package com.CS320.app.requests;
+package com.CS320.app.requests.Requests;
 
+import com.CS320.app.requests.Responses.Response;
 import com.CS320.app.server.Controller;
 
 public class AdministratorRequest extends AuthenticationRequest {

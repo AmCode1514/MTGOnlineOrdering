@@ -5,12 +5,22 @@ import java.util.List;
 public class Card {
 
     private String name;
-    
-    private boolean foil;
-    
+    //this field is not as useful as I thought. It turns out that cards on tcgplayer, if they have a non-unique foil, share the same tcgplayer id. This makes my analysis tricky
     private String tcgplayer_id;
     
     private Prices prices;
+
+    private String set_name;
+
+    private String frame;
+
+    private String full_art;
+    //promos have separate tcgplayer ids. This is very useful.
+    private boolean promo;
+
+    private boolean textless;
+
+    private String rarity;
 
     private Card() {
     }
@@ -26,8 +36,8 @@ public class Card {
     public Prices getPrices() {
         return prices;
     }
-    public boolean getFoil() {
-        return foil;
+    public String getSet() {
+        return set_name;
     }
     public static Card getCard(String name) {
         Card card = new Card();

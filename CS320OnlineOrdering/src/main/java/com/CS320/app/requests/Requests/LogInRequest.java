@@ -1,9 +1,11 @@
-package com.CS320.app.requests;
+package com.CS320.app.requests.Requests;
 
 import org.eclipse.jetty.server.Server;
 
 import com.CS320.app.database.DatabaseRequestExecutor;
 import com.CS320.app.misc.ServerResourcePackage;
+import com.CS320.app.requests.Responses.LogInResponse;
+import com.CS320.app.requests.Responses.Response;
 import com.CS320.app.server.Session;
 import com.CS320.app.server.SessionManager;
 import com.CS320.app.server.TokenGenerator;

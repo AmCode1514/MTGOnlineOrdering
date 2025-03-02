@@ -1,4 +1,4 @@
-package com.CS320.app.requests;
+package com.CS320.app.requests.Responses;
 
 public class CreateUserResponse extends Response {
     private boolean wasCreated;

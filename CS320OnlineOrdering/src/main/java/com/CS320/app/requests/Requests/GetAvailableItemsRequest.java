@@ -1,7 +1,8 @@
-package com.CS320.app.requests;
+package com.CS320.app.requests.Requests;
 
 
 import com.CS320.app.misc.ServerResourcePackage;
+import com.CS320.app.requests.Responses.Response;
 
 public class GetAvailableItemsRequest extends Request {
     public int numRequestedItems;

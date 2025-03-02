@@ -40,4 +40,7 @@ public class Session {
         }
         throw new ArrayIndexOutOfBoundsException("Current session has maximum number of loggable orders");
     }
+    public boolean getAdminStatus() {
+        return isAdmin;
+    }
 }

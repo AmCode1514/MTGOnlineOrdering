@@ -1,9 +1,11 @@
-package com.CS320.app.requests;
+package com.CS320.app.requests.Requests;
 
 import java.util.ArrayList;
 
 import com.CS320.app.misc.Order;
 import com.CS320.app.misc.ServerResourcePackage;
+import com.CS320.app.requests.Responses.CheckoutResponse;
+import com.CS320.app.requests.Responses.Response;
 import com.CS320.app.server.SessionManager;
 
 public class CheckoutRequest extends AuthenticationRequest {

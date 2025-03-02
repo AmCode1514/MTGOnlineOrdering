@@ -1,4 +1,4 @@
-package com.CS320.app.requests;
+package com.CS320.app.requests.Responses;
 
 import io.javalin.http.Context;
 
