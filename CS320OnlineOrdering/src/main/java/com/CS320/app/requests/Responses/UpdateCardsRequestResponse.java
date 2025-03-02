@@ -1,4 +1,4 @@
-package com.CS320.app.requests;
+package com.CS320.app.requests.Responses;
 
 public class UpdateCardsRequestResponse extends Response{
     private boolean status = false;

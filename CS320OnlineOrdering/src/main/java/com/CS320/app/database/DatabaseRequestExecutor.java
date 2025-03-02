@@ -25,7 +25,7 @@ public class DatabaseRequestExecutor {
 
     // this method checks if the selected email and password exist in the datbase
     public boolean signInSignal(String email, String enteredPassword) {
-        String query = String.format("SELECT Password FROM Strippas WHERE Email = '%s';", email);
+        String query = String.format("SELECT Password FROM *addName* WHERE Email = '%s';", email);
         return database.validatePassword(query, enteredPassword); 
 
     }

@@ -1,9 +1,10 @@
-package com.CS320.app.requests;
+package com.CS320.app.requests.Requests;
 
 import java.lang.reflect.Type;
 
 import com.CS320.app.misc.ServerResourcePackage;
 import com.CS320.app.requests.Handlers.RequestHandler;
+import com.CS320.app.requests.Responses.Response;
 
 import io.javalin.http.Context;
 

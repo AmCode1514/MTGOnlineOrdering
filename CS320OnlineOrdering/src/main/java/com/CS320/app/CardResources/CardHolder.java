@@ -27,7 +27,7 @@ public class CardHolder {
       }
       for (int i = 0; i < cards.size(); ++i) {
         cards.get(i).sendNameToLowerCase();
-        if (cards.get(i).getName().length() == 1) {
+        if (cards.get(i).getName().length() == 1 || cards.get(i).getTcgplayer_id() == null) {
           cards.remove(i);
         }
       }

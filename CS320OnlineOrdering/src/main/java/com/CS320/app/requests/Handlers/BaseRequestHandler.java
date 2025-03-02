@@ -4,7 +4,7 @@ import java.lang.reflect.Type;
 
 import com.CS320.app.Exceptions.SchemaException;
 import com.CS320.app.misc.ServerResourcePackage;
-import com.CS320.app.requests.Request;
+import com.CS320.app.requests.Requests.Request;
 import com.google.gson.Gson;
 
 import io.javalin.http.Context;

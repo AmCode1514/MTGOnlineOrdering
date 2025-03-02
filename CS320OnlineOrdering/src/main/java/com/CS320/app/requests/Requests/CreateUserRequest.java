@@ -1,8 +1,10 @@
-package com.CS320.app.requests;
+package com.CS320.app.requests.Requests;
 
 import com.CS320.app.database.Database;
 import com.CS320.app.database.DatabaseRequestExecutor;
 import com.CS320.app.misc.ServerResourcePackage;
+import com.CS320.app.requests.Responses.CreateUserResponse;
+import com.CS320.app.requests.Responses.Response;
 
 public class CreateUserRequest extends Request{
     private String firstName;
