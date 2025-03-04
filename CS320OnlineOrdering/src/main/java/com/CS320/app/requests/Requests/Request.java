@@ -14,7 +14,7 @@ public abstract class Request {
     protected String ip;
     protected transient ServerResourcePackage pkg;
 
-    public abstract Response buildResponse();
+    public abstract Response buildResponse() throws Exception;
 
     public void injectResourcePackage(ServerResourcePackage pkg) {
         this.pkg = pkg;

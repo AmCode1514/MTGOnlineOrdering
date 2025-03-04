@@ -34,7 +34,7 @@ public abstract class RequestHandler {
     //called after the building of the response
     public abstract void setHeaders();
 
-    protected abstract void buildRequestResponse();
+    protected abstract void buildRequestResponse() throws Exception;
 
     public abstract byte getRequiredResources();
 
@@ -50,7 +50,7 @@ public abstract class RequestHandler {
     // public boolean getPriviledgedStatus() {
     //     return isPriviledged;
     // }
-    public Response getResponse() {
+    public Response getResponse() throws Exception {
         if (response == null && request == null) {
             buildRequest();
             buildRequestResponse();

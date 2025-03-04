@@ -12,6 +12,7 @@ public class CardHolder {
 
     private List<Card> cards;
     private transient HashMap<String, ListBlock> prefixMap;
+    private transient HashMap<String, Card> hmacMap;
     private transient Card[] searchArray;
     private transient boolean initialized = false;
 
@@ -21,14 +22,24 @@ public class CardHolder {
     private CardHolder() {
     }
     //invoked after deserialization to set up object.
-    public void init() {
+    public void init(byte[] key) {
       if (initialized) {
         return;
       }
+      hmacMap = new HashMap<>();
       for (int i = 0; i < cards.size(); ++i) {
         cards.get(i).sendNameToLowerCase();
         if (cards.get(i).getName().length() == 1 || cards.get(i).getTcgplayer_id() == null) {
           cards.remove(i);
+        }
+        else {
+          try {
+            hmacMap.put(cards.get(i).getHMACHash(key), cards.get(i));
+          }
+          catch(Exception e) {
+            e.printStackTrace();
+          }
+          
         }
       }
       Collections.sort(cards, new CardComparator());
@@ -58,6 +69,15 @@ public class CardHolder {
       return cards.get(index).getName();
     }
 
+    public Card getCardFromOrderRequest(Card card, byte[] key) throws CardValidationException {
+      //the following line throws an exception only if the name or tcg id is missing
+      Card t = hmacMap.get(card.getHMACHash(key));
+      if (t == null) {
+        //this is the case in which a security violation likely occured, there is no addendum and the context will be injected into the exception.
+        throw new CardValidationException("");
+      }
+      return t;
+    }
     //This find function defines a block of cards to look at based on the prefix mapping, and then performs a binary search over it. Some prefixes my have 100s or thousands of elements. Thus, this improves search speed for such cases
     //This function implements a three way hybrid approach of prefix mapping, linear, and binary search. Linear search improves performance for very small blocks.
     public Card[] find(String name) {
@@ -110,6 +130,7 @@ public class CardHolder {
       }
       return true;
     }
+
   
 }
 

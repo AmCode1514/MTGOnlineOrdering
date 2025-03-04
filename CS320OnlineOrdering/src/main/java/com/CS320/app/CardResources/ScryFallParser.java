@@ -18,15 +18,14 @@ public class ScryFallParser {
     public ScryFallParser() {
 
     }
-    public CardHolder parseFromJSONAndSort() throws IOException {
+    public CardHolder parseFromJSONAndSort(byte[] secretKey) throws IOException {
         try {
             //update the magic string to fetch env data
             //String jsonString = new String(Files.readAllBytes(Paths.get("BulkData")), StandardCharsets.UTF_8);
-            
             ObjectMapper map = new ObjectMapper();
             map.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
             CardHolder cardList =  map.readValue(Files.readAllBytes(Paths.get("BulkData.json")), CardHolder.class);
-            cardList.init();
+            cardList.init(secretKey);
             return cardList; 
         }
         catch(IOException e) {
