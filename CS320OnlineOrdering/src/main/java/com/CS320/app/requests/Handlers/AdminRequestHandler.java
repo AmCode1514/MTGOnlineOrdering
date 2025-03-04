@@ -39,7 +39,7 @@ public class AdminRequestHandler extends RequestHandler {
     }
 
     @Override
-    protected void buildRequestResponse() {
+    protected void buildRequestResponse() throws Exception {
         response = request.buildResponse();
     }
     @Override

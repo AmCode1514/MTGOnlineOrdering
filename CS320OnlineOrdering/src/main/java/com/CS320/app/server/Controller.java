@@ -92,6 +92,10 @@ public class Controller {
         } catch (IOException e) {
             logger.log(Level.SEVERE, e.getMessage() + '\n' + e.getStackTrace());
         }
+        catch(Exception e) {
+            //this is likely an exception relating to an invalid hash.
+            e.printStackTrace();
+        }
     }
 
     private ServerResourcePackage buildResourcePackage(RequestHandler handler) {
