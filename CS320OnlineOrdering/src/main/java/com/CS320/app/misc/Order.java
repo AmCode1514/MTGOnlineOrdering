@@ -7,6 +7,9 @@ public class Order {
     private final String email;
     private double price;
     private int numItems;
+    private int orderID;
+    private double currentTCGPricing = 0.0;
+    private boolean isFulfilled = false;
     public Order(ArrayList<String> items, double price, int numItems, String email) {
         this.items = items;
         this.price = price;
@@ -15,5 +18,14 @@ public class Order {
     }
     public String getEmail() {
         return email;
+    }
+    public int getOrderNumber() {
+        return orderID;
+    }
+    public void setCurrentTCGPricing(double price) {
+        this.currentTCGPricing = price;
+    }
+    public void fulfillOrder() {
+        isFulfilled = true;
     }
 }

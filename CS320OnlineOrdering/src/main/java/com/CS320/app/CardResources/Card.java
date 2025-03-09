@@ -69,8 +69,11 @@ public class Card {
             code.init(spec);
             byte[] finishedHashcode = code.doFinal(getClassBytes());
             return new String(finishedHashcode, "UTF-8");
-        } catch (Exception e) {
-            Logger.getLogger("Master").log(Level.SEVERE, e.getMessage(), e);
+        } catch (CardValidationException e) {
+            throw e;
+        }
+        catch(Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
