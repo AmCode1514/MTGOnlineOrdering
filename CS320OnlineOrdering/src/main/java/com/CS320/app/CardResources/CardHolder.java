@@ -35,6 +35,7 @@ public class CardHolder {
         else {
           try {
             hmacMap.put(cards.get(i).getHMACHash(key), cards.get(i));
+            
           }
           catch(Exception e) {
             e.printStackTrace();
@@ -49,9 +50,9 @@ public class CardHolder {
         // if (getCardNameAtIndex(i).length() == 1) {
         //   continue;
         // } 
-        if (!prefixMap.containsKey(getCardNameAtIndex(i).substring(0, 2))) {
+        if (!prefixMap.containsKey(getCardNameAtIndex(i).substring(0, 2).toLowerCase())) {
           ListBlock curr = new ListBlock(i);
-          prefixMap.put(getCardNameAtIndex(i).substring(0,2), curr);
+          prefixMap.put(getCardNameAtIndex(i).substring(0,2).toLowerCase(), curr);
           last.setEndIndex(i - 1);
           last = curr;
         }
