@@ -2,7 +2,7 @@ package com.CS320.app.CardResources;
 
 import java.util.Comparator;
 
-public class CardComparator implements Comparator<Card>{
+public class CardNameComparator implements Comparator<Card>{
 
     @Override
     public int compare(Card o1, Card o2) {

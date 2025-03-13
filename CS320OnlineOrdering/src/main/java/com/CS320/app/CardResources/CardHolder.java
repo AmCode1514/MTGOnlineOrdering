@@ -43,7 +43,7 @@ public class CardHolder {
           
         }
       }
-      Collections.sort(cards, new CardComparator());
+      Collections.sort(cards, new CardNameComparator());
       ListBlock last = new ListBlock(0);
       prefixMap = new HashMap<>();
       for (int i = 0; i < cards.size(); ++i) {
@@ -107,7 +107,7 @@ public class CardHolder {
     }
     //this helper function performs the binary search using the inbuilt binary search array algorithm. end indices are exclusive which is why 1 is added.
     private int bestMatchIndex(Card[] search, ListBlock block, String name) {
-      int index = Arrays.binarySearch(search, block.startIndex, block.endIndex + 1, Card.getCard(name), new CardComparator());
+      int index = Arrays.binarySearch(search, block.startIndex, block.endIndex + 1, Card.getCard(name), new CardNameComparator());
       return index;
     }
 

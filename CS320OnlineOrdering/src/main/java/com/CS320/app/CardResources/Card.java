@@ -51,6 +51,10 @@ public class Card {
     public Prices getPrices() {
         return prices;
     }
+    
+    public String getSetName() {
+        return set_name;
+    }
 
     public String getSet() {
         return set_name;
