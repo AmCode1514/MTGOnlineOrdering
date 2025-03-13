@@ -61,7 +61,7 @@ public class OrdersList extends Thread {
         }
         return combinedList;
     }
-    
+
     public synchronized ArrayList<Order> getAllOrdersFromEmail(String email) {
         return ordersMap.get(email);
     }
@@ -81,6 +81,6 @@ public class OrdersList extends Thread {
     }
 
     public void priceOrder(Order order) {
-
+        //todo, hopefully tcg doesn't ip ban me :)
     }
 }
