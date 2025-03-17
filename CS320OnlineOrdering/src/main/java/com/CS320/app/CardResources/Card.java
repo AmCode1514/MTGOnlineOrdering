@@ -17,7 +17,7 @@ public class Card {
 
     private Prices prices;
 
-    private String set_name;
+    public String set_name;
 
     private String frame;
 
@@ -52,14 +52,9 @@ public class Card {
         return prices;
     }
     
-    public String getSetName() {
+    public String getset_name() {
         return set_name;
     }
-
-    public String getSet() {
-        return set_name;
-    }
-
     public static Card getCard(String name) {
         Card card = new Card();
         card.name = name.toLowerCase();

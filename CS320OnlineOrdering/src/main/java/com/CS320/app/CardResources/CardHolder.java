@@ -15,6 +15,7 @@ public class CardHolder {
     private transient HashMap<String, Card> hmacMap;
     private transient Card[] searchArray;
     private transient boolean initialized = false;
+    private transient KDTree<Card> tree;
 
     @JsonCreator
     //Cardholder is instantiated by Jackson and executes a sort and then a two character prefix mapping of the resultant list. This allows easy indexing to relevant sections of the array. 
@@ -26,6 +27,8 @@ public class CardHolder {
       if (initialized) {
         return;
       }
+      int[] keys = {0,1};
+      
       hmacMap = new HashMap<>();
       for (int i = 0; i < cards.size(); ++i) {
         cards.get(i).sendNameToLowerCase();
@@ -43,6 +46,7 @@ public class CardHolder {
           
         }
       }
+      tree = new KDTree<Card>(cards.toArray(new Card[0]), keys, new CardNameComparator(), new CardSetNameComparator());
       Collections.sort(cards, new CardNameComparator());
       ListBlock last = new ListBlock(0);
       prefixMap = new HashMap<>();
@@ -98,7 +102,7 @@ public class CardHolder {
       }
       else {
         matchIndex = -matchIndex - 1;
-        while (matchIndex <= blockByPrefix.endIndex && isRemainderEqual(name, getCardNameAtIndex(matchIndex)) && clientCards.size() < 10) {
+        while (matchIndex <= blockByPrefix.endIndex && CardUtils.isRemainderEqual(name, getCardNameAtIndex(matchIndex)) && clientCards.size() < 10) {
           clientCards.add(cards.get(matchIndex));
           ++matchIndex;
         }
@@ -114,25 +118,19 @@ public class CardHolder {
     //simple linear scan over matching prefixes in the small block, improves performance in cases where binary search calls use more memory and processing for a small list.
     private void linearSearchForSmallBlocks(ArrayList<Card> clientCards, String match, ListBlock block) {
       int startingIndex = block.startIndex;
-      while(startingIndex <= block.endIndex && isRemainderEqual(match, getCardNameAtIndex(startingIndex)) && clientCards.size() < 10) {
+      while(startingIndex <= block.endIndex && CardUtils.isRemainderEqual(match, getCardNameAtIndex(startingIndex)) && clientCards.size() < 10) {
         clientCards.add(cards.get(startingIndex));
         ++startingIndex;
       }
     }
+    //test function find
+    // public List<Card> KDTreeFind(Card t) {
+    //   ArrayList<Card> foundCards = new ArrayList<>();
+    //   tree.find(t, foundCards, new CardCandidateClass());
+    //   return foundCards;
+    // }
 
-    //this function tests if the remainder of the string, aside from the two character prefix, are equal.
-    private boolean isRemainderEqual(String match, String card) {
-      //thinking about it, you might actually be able to manipulate the card string and use a hashing algorithm to achieve O(1)
-      int minLength = Math.min(match.length(), card.length());
-      for (int i = 2; i < minLength; ++i) {
-          if (match.charAt(i) != card.charAt(i)) {
-              return false;
-          }
-      }
-      return true;
-    }
-
-  
+    
 }
 
 
