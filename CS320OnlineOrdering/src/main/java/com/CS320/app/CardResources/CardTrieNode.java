@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardTrieNode {
-    private final CardTrieNode[] nodes = new CardTrieNode[29];
+    private final CardTrieNode[] nodes = new CardTrieNode[50];
     private final Character associatedCharacter;
     private final List<Card> associatedCards;
+    public static final List<Character> unknownCharacters = new ArrayList<>();
     private int numWords;
     private int numCardsInBranch;
     private int numChildNodes;
@@ -17,17 +18,25 @@ public class CardTrieNode {
         numWords = 0;
         numChildNodes = 0;
     }
-    public CardTrieNode tryAdd(Character terminatingCard) {
-        int nodeIndex = CardTrieNode.determineIndex(terminatingCard);
+    public CardTrieNode tryAdd(Character charToBeAdded) {
+        int nodeIndex = CardTrieNode.determineIndex(charToBeAdded);
         CardTrieNode node = nodes[nodeIndex];
         ++numCardsInBranch;
         if(node == null) {
-            node = new CardTrieNode(terminatingCard);
+            node = new CardTrieNode(charToBeAdded);
             ++numChildNodes;
             nodes[nodeIndex] = node;
             return node;
         }
         return node;
+    }
+    //method can return null if character doesn't exist
+    public CardTrieNode getNode(Character selectingCharacter) {
+        int nodeIndex = CardTrieNode.determineIndex(selectingCharacter);
+        return nodes[nodeIndex];
+    }
+    public CardTrieNode[] getNodeList() {
+        return nodes;
     }
     public void addCard(Card card) {
         associatedCards.add(card);
@@ -53,21 +62,58 @@ public class CardTrieNode {
     public int getNumChildNodes() {
         return numChildNodes;
     }
-
+//this function is highly convoluted
     public static int determineIndex(Character associatedChar) {
-        int asciiValue = ((int) associatedChar.charValue()) - 10;
-        if (asciiValue >= 84 && asciiValue <= 109) {
-            return asciiValue % 29;
+        int asciiValue = ((int) associatedChar.charValue()) - 19;
+        if (asciiValue >= 78 && asciiValue <= 103) {
+            return asciiValue % 26;
         }
-        else if (asciiValue == 39) {
+        else if (asciiValue == 20) {
             return 26;
         }
-        else if (asciiValue == 44) {
+        else if (asciiValue == 25) {
             return 27;
         }
-        else if (asciiValue == 43) {
+        else if (asciiValue == 24) {
             return 28;
         }
+        else if (asciiValue == 15) {
+            return 29;
+        }
+        else if (asciiValue >= 29 && asciiValue <= 38) {
+            return asciiValue + 1;
+        }
+        else if (asciiValue == 76) {
+            return 40;
+        }
+        else if (asciiValue == 26) {
+            return 41;
+        }
+        else if (asciiValue == 28) {
+            return 42;
+        }
+        else if (asciiValue == 27) {
+            return 43;
+        }
+        else if (asciiValue == 39) {
+            return 44;
+        }
+        else if (asciiValue == 21) {
+            return 45;
+        }
+        else if (asciiValue == 22) {
+            return 46;
+        }
+        else if(asciiValue == 14) {
+            return 47;
+        }
+        else if (asciiValue == 19) {
+            return 48;
+        }
+        else if (asciiValue == 40) {
+            return 49;
+        }
+        unknownCharacters.add(associatedChar);
         return -1;
     }
 }

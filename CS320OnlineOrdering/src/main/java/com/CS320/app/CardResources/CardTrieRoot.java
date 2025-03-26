@@ -5,7 +5,7 @@ import java.util.List;
 
 public class CardTrieRoot {
     List<CardTrieNode> characterList;
-    private final CardTrieNode[] nodes = new CardTrieNode[29];
+    private final CardTrieNode[] nodes = new CardTrieNode[50];
     int numCardsInTree = 0;
     public CardTrieRoot() {
         characterList = new ArrayList<>();
@@ -17,5 +17,9 @@ public class CardTrieRoot {
             return nodes[index];
         }
         return nodes[index];
+    }
+    public CardTrieNode getNode(Character selectingCharacter) {
+        int nodeIndex = CardTrieNode.determineIndex(selectingCharacter);
+        return nodes[nodeIndex];
     }
 }

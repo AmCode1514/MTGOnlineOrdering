@@ -1,5 +1,6 @@
 package com.CS320.app.CardResources;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,7 +16,7 @@ public class CardHolder {
     private transient HashMap<String, Card> hmacMap;
     private transient Card[] searchArray;
     private transient boolean initialized = false;
-    private transient KDTree<Card> tree;
+    private transient CardTrie advancedSearchTrie;
 
     @JsonCreator
     //Cardholder is instantiated by Jackson and executes a sort and then a two character prefix mapping of the resultant list. This allows easy indexing to relevant sections of the array. 
@@ -27,13 +28,15 @@ public class CardHolder {
       if (initialized) {
         return;
       }
-      int[] keys = {0,1};
       
       hmacMap = new HashMap<>();
       for (int i = 0; i < cards.size(); ++i) {
+        cards.get(i).normalizeName();
         cards.get(i).sendNameToLowerCase();
+        cards.get(i).setMask();
         if (cards.get(i).getName().length() == 1 || cards.get(i).getTcgplayer_id() == null) {
           cards.remove(i);
+          --i;
         }
         else {
           try {
@@ -46,14 +49,11 @@ public class CardHolder {
           
         }
       }
-      tree = new KDTree<Card>(cards.toArray(new Card[0]), keys, new CardNameComparator(), new CardSetNameComparator());
       Collections.sort(cards, new CardNameComparator());
       ListBlock last = new ListBlock(0);
       prefixMap = new HashMap<>();
       for (int i = 0; i < cards.size(); ++i) {
-        // if (getCardNameAtIndex(i).length() == 1) {
-        //   continue;
-        // } 
+        //examine this card toLowerCase again, there was a bug and the following calls should be unnecessary considering the whole list should be lower case from the above loop
         if (!prefixMap.containsKey(getCardNameAtIndex(i).substring(0, 2).toLowerCase())) {
           ListBlock curr = new ListBlock(i);
           prefixMap.put(getCardNameAtIndex(i).substring(0,2).toLowerCase(), curr);
@@ -63,6 +63,7 @@ public class CardHolder {
       }
       last.setEndIndex(cards.size() - 1);
       searchArray = cards.toArray(new Card[0]);
+      advancedSearchTrie = new CardTrie(searchArray);
       initialized = true;
     }
     public List<Card> getCards() {
@@ -122,6 +123,9 @@ public class CardHolder {
         clientCards.add(cards.get(startingIndex));
         ++startingIndex;
       }
+    }
+    public List<Card> advancedSearch(String name, String set, Byte mask, int maxDepth) {
+      return advancedSearchTrie.find(mask, name, set, maxDepth);
     }
     //test function find
     // public List<Card> KDTreeFind(Card t) {
