@@ -2,6 +2,8 @@ package com.CS320.app.CardResources;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+
+import java.text.Normalizer;
 import java.util.Base64;
 import java.util.List;
 import java.util.logging.Level;
@@ -33,13 +35,33 @@ public class Card {
 
     private boolean nonfoil;
 
+    private Byte mask;
+
     private Card() {
+
     }
 
+    public void setMask() {
+        mask = 0b00000000;
+        if (foil == true) {
+            mask = (byte) (mask | (1 << 0));
+        } 
+        if(full_art == true) {
+            mask = (byte) (mask | (1 << 1));
+        }
+        if (promo == true) {
+            mask = (byte) (mask | (1 << 2));
+        }
+    }
+    public Byte getMask() {
+        return mask;
+    }
     public void sendNameToLowerCase() {
-        this.name = name.toLowerCase();
+        this.name = this.name.toLowerCase().replaceAll(" ", "");
     }
-
+    public void normalizeName() {
+        name = Normalizer.normalize(name, Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
+    }
     public String getName() {
         return name;
     }
@@ -51,9 +73,25 @@ public class Card {
     public Prices getPrices() {
         return prices;
     }
+
+    public boolean getfull_art() {
+        return full_art;
+    }
     
     public String getset_name() {
         return set_name;
+    }
+    public String getframe() {
+        return frame;
+    }
+    public boolean getpromo() {
+        return promo;
+    }
+    public boolean getfoil() {
+        return foil;
+    }
+    public boolean getnonfoil() {
+        return nonfoil;
     }
     public static Card getCard(String name) {
         Card card = new Card();
