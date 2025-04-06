@@ -1,26 +1,37 @@
 package com.CS320.app.misc;
+import java.util.List;
 
-import java.util.ArrayList;
+import com.CS320.app.CardResources.Card;
 
 public class Order {
-    private ArrayList<String> items;
+    private static int currOrderNumber = 0;
+    private List<Card> items;
+    private boolean[] foilFlags;
     private final String email;
-    private double price;
     private int numItems;
     private int orderID;
     private double currentTCGPricing = 0.0;
     private boolean isFulfilled = false;
-    public Order(ArrayList<String> items, double price, int numItems, String email) {
+    public Order(List<Card> items, int numItems, String email, boolean[] foilFlags) {
         this.items = items;
-        this.price = price;
         this.numItems = numItems;
         this.email = email;
+        this.orderID = currOrderNumber;
+        this.foilFlags = foilFlags;
+        ++currOrderNumber;
     }
     public String getEmail() {
         return email;
     }
     public int getOrderNumber() {
         return orderID;
+    }
+    public List<Card> getCardList() {
+        return items;
+    }
+    public boolean getFoilFlagAtIndex(int index) {
+        //can throw out of bounds exception
+        return  foilFlags[index];
     }
     public void setCurrentTCGPricing(double price) {
         this.currentTCGPricing = price;

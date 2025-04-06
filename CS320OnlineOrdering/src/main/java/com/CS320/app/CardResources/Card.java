@@ -57,7 +57,7 @@ public class Card {
         return mask;
     }
     public void sendNameToLowerCase() {
-        this.name = this.name.toLowerCase().replaceAll(" ", "");
+        this.name = this.name.toLowerCase();
     }
     public void normalizeName() {
         name = Normalizer.normalize(name, Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
@@ -93,12 +93,13 @@ public class Card {
     public boolean getnonfoil() {
         return nonfoil;
     }
-    public static Card getCard(String name) {
+    public static Card getCard(String name, String tcgplayer_id) {
         Card card = new Card();
         card.name = name.toLowerCase();
+        card.tcgplayer_id = tcgplayer_id;
         return card;
     }
-
+    //currently unneeded but may be useful later
     public String getHMACHash(byte[] key) throws CardValidationException {
         SecretKeySpec spec = new SecretKeySpec(key, "HmacSHA256");
         try {

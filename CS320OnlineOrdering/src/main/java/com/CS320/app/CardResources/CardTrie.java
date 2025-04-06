@@ -45,7 +45,6 @@ public class CardTrie {
     }
 
     private void splitNode(CardTrieNode current, String name, int index, Card addingCard) {
-        String originalUnadulteratedName = current.getCardList().get(0).getName();
         String nameOfCurrentCard = current.getCardList().get(0).getName().substring(index);
         name = name.substring(index);
         Card originalCardAtNode = current.removeCard(0);
@@ -73,11 +72,11 @@ public class CardTrie {
 
     }
     //TODO, build back tracking find
-    public List<Card> find(Byte matchingMask, String name, String set, int maxDepth) {
+    public Card[] find(Byte matchingMask, String name, String set, int maxDepth) {
         List<Card> cardList = new ArrayList<>();
         CardTrieNode currentNode = root.getNode(name.charAt(0));
-        if (currentNode == null || name.length() < 2) {
-            return cardList;
+        if (currentNode == null) {
+            return cardList.toArray(new Card[0]);
         }
         //first step, navigate down tree until we reach a node which has either no children, or there is no next character in the name string.
         for (int i = 1; i < name.length(); ++i) {
@@ -95,7 +94,7 @@ public class CardTrie {
         if (currentNode.getNumChildNodes() != 0) {
             recursiveDepthSearch(cardList, set, matchingMask, currentNode, maxDepth, 0);
         }
-        return cardList;
+        return cardList.toArray(new Card[0]);
     }
 
     private boolean isMatch(String set, Byte matchingMask, Card currentCard) {

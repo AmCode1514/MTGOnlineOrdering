@@ -10,7 +10,7 @@ public class Session {
     private boolean isAdmin;
     private Order[] orders = new Order[4];
 
-    public Session(String ip, String token, String email) {
+    public Session(String ip, String token, String email, boolean isAdmin) {
         this.ip = ip;
         this.token = token;
         this.email = email;

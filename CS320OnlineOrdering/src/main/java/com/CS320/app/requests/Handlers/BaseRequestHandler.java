@@ -11,7 +11,7 @@ import io.javalin.http.Context;
 
 public class BaseRequestHandler extends RequestHandler {
     //I will use a byte flag to indicate what resources need to be injected into the request. This could include the sessionmanager(1st bit on the left) and the controller(second bit)
-    private final byte requiredResources = 0b00000101;
+    private final byte requiredResources = 0b00001101;
 
     public BaseRequestHandler(Type classType, Context ctx) {
         super(classType, ctx);

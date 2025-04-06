@@ -14,9 +14,7 @@ public class TestScryFallParser {
     @Test
     public void testCardOutput() {
         try {
-            byte[] by = new byte[64];
-            new SecureRandom().nextBytes(by);
-            assertEquals("Trebcg", new ScryFallParser().parseFromJSONAndSort(by).getCards().get(0).getName());
+            assertEquals("Trebcg", new ScryFallParser().parseFromJSONAndSort().getCards().get(0).getName());
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -25,9 +23,7 @@ public class TestScryFallParser {
     @Test
     public void testCardOutput2() {
         try {
-            byte[] by = new byte[64];
-            new SecureRandom().nextBytes(by);
-            assertEquals("Trebcg", new ScryFallParser().parseFromJSONAndSort(by).getCards().get(0).getPrices().getusd());
+            assertEquals("Trebcg", new ScryFallParser().parseFromJSONAndSort().getCards().get(0).getPrices().getusd());
         }
         catch(Exception e) {
             e.printStackTrace();

@@ -4,7 +4,7 @@ package com.CS320.app.server;
 import com.CS320.app.Exceptions.SchemaException;
 import com.CS320.app.requests.Handlers.AdminRequestHandler;
 import com.CS320.app.requests.Handlers.BaseRequestHandler;
-import com.CS320.app.requests.Requests.CheckoutRequest;
+import com.CS320.app.requests.Requests.CreateOrderRequest;
 import com.CS320.app.requests.Requests.CreateUserRequest;
 import com.CS320.app.requests.Requests.GetAvailableItemsRequest;
 import com.CS320.app.requests.Requests.LogInRequest;
@@ -24,8 +24,9 @@ public class WebServer {
         this.port = port;
         Javalin app = Javalin.create();
         SessionManager sessionManager = new SessionManager();
+        OrdersList orders = new OrdersList();
         try {
-            webserverThreadController = new Controller(app, sessionManager);
+            webserverThreadController = new Controller(app, sessionManager, orders);
         }
         catch(Exception e) {
             throw e;
@@ -45,7 +46,7 @@ public class WebServer {
             }
         });
         app.post("/api/Checkout", ctx -> {
-            String response = sendToJson(webserverThreadController.baseControlFlow(new BaseRequestHandler(CheckoutRequest.class, ctx)));
+            String response = sendToJson(webserverThreadController.baseControlFlow(new BaseRequestHandler(CreateOrderRequest.class, ctx)));
             if (response == null) {
                 ctx.status(500);
             }

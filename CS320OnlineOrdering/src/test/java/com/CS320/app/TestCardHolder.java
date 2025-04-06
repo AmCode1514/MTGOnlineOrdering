@@ -19,17 +19,15 @@ public class TestCardHolder {
     @Test
     public void basicSearchTest() {
         try {
-            byte[] by = new byte[64];
-            new SecureRandom().nextBytes(by);
-            CardHolder test = new ScryFallParser().parseFromJSONAndSort(by);
+            CardHolder test = new ScryFallParser().parseFromJSONAndSort();
            // assertEquals(test.find("xa")[0].getName(), "xavier sal, infested captain");
-            Card f = Card.getCard("viscera");
-            Card fa = Card.getCard("visd");
-            Card g = Card.getCard("van");
-            Card h = Card.getCard("ham");
-            Card b = Card.getCard("vis");  
-            Card bha = Card.getCard("vis");
-            Card bh = Card.getCard("visa");
+            Card f = Card.getCard("viscera", "");
+            Card fa = Card.getCard("visd", "");
+            Card g = Card.getCard("van", "");
+            Card h = Card.getCard("ham", "");
+            Card b = Card.getCard("vis", "");  
+            Card bha = Card.getCard("vis", "");
+            Card bh = Card.getCard("visa", "");
           
             // Card bhah = Card.getCard("visn");
             Card gh[] = {f,fa,g,h,b,bh,bha};
@@ -44,10 +42,8 @@ public class TestCardHolder {
     @Test
     public void fullSearchTest() {
         try {
-            byte[] by = new byte[64];
-            new SecureRandom().nextBytes(by);
-            CardHolder test = new ScryFallParser().parseFromJSONAndSort(by);
-            List<Card> foundCards = test.advancedSearch("av","Commander Legends", (byte)0b00000000, 6);
+            CardHolder test = new ScryFallParser().parseFromJSONAndSort();
+            Card[] foundCards = test.advancedSearch("av","Commander Legends", (byte)0b00000000, 6);
             //assertEquals(foundCards.get(0), 0);
         }
         catch(IOException e) {

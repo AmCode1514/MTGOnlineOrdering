@@ -7,14 +7,30 @@ import com.CS320.app.requests.Responses.SearchCardsRequestResponse;
 
 public class SearchCardsRequest extends Request{
     private String name;
+    private String set;
+    private boolean isFoil;
+    private boolean isFullArt;
+    private boolean isPromo;
+    private int depth;
+    private boolean desiredSearch;
     @Override
     public Response buildResponse() {
         try {
             if (name.length() < 2) {
-                return new SearchCardsRequestResponse(new Card[0], 0);
+                return new SearchCardsRequestResponse(new Card[0], 0, requestType);
             }
-            Card[] fetchedCards = pkg.getCardListAccessor().getCards(name);
-            return new SearchCardsRequestResponse(fetchedCards, fetchedCards.length);
+            int representation = 0;
+            if (isFoil) {
+                representation = representation | (1 << 0);
+            }
+            if(isFullArt) {
+                representation = representation | (1 << 1);
+            }
+            if (isPromo) {
+                representation = representation | (1 << 2);
+            }
+            Card[] fetchedCards = pkg.getCardListAccessor().getCards(name, set, (byte) representation, depth);
+            return new SearchCardsRequestResponse(fetchedCards, fetchedCards.length, requestType);
         }
         catch(Exception e) {
             e.printStackTrace();

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardTrieNode {
-    private final CardTrieNode[] nodes = new CardTrieNode[50];
+    private final CardTrieNode[] nodes = new CardTrieNode[51];
     private final Character associatedCharacter;
     private final List<Card> associatedCards;
     public static final List<Character> unknownCharacters = new ArrayList<>();
@@ -68,50 +68,54 @@ public class CardTrieNode {
         if (asciiValue >= 78 && asciiValue <= 103) {
             return asciiValue % 26;
         }
-        else if (asciiValue == 20) {
+        
+        else if (asciiValue == 13) {
             return 26;
         }
-        else if (asciiValue == 25) {
+        else if (asciiValue == 20) {
             return 27;
         }
-        else if (asciiValue == 24) {
+        else if (asciiValue == 25) {
             return 28;
         }
-        else if (asciiValue == 15) {
+        else if (asciiValue == 24) {
             return 29;
         }
+        else if (asciiValue == 15) {
+            return 30;
+        }
         else if (asciiValue >= 29 && asciiValue <= 38) {
-            return asciiValue + 1;
+            return asciiValue + 2;
         }
         else if (asciiValue == 76) {
-            return 40;
-        }
-        else if (asciiValue == 26) {
             return 41;
         }
-        else if (asciiValue == 28) {
+        else if (asciiValue == 26) {
             return 42;
         }
-        else if (asciiValue == 27) {
+        else if (asciiValue == 28) {
             return 43;
         }
-        else if (asciiValue == 39) {
+        else if (asciiValue == 27) {
             return 44;
         }
-        else if (asciiValue == 21) {
+        else if (asciiValue == 39) {
             return 45;
         }
-        else if (asciiValue == 22) {
+        else if (asciiValue == 21) {
             return 46;
         }
-        else if(asciiValue == 14) {
+        else if (asciiValue == 22) {
             return 47;
         }
-        else if (asciiValue == 19) {
+        else if(asciiValue == 14) {
             return 48;
         }
-        else if (asciiValue == 40) {
+        else if (asciiValue == 19) {
             return 49;
+        }
+        else if (asciiValue == 40) {
+            return 50;
         }
         unknownCharacters.add(associatedChar);
         return -1;
