@@ -24,19 +24,20 @@ public class LogInRequest extends Request{
     public Response buildResponse() {
         DatabaseRequestExecutor exec = new DatabaseRequestExecutor();
         SessionManager manager = pkg.getSessionManager();
+        //I need more database code, I will fetch information about admin status and update accordingly.
         if (exec.signInSignal(email, password) && !manager.contains(token)) {
             String sessionToken = TokenGenerator.generateRandomHexStringOfLength(32);
-            manager.add(sessionToken, new Session(super.ip, sessionToken, email));
-            return new LogInResponse(sessionToken, true);
+            manager.add(sessionToken, new Session(super.ip, sessionToken, email, false));
+            return new LogInResponse(sessionToken, true, requestType);
         }
         else if (exec.signInSignal(email, password) && manager.contains(token)) {
             //remove old token, reissue.
             manager.removeByEmail(email);
             String sessionToken = TokenGenerator.generateRandomHexStringOfLength(32);
-            manager.add(sessionToken, new Session(super.ip, sessionToken, email));
-            return new LogInResponse(sessionToken, true);
+            manager.add(sessionToken, new Session(super.ip, sessionToken, email, false));
+            return new LogInResponse(sessionToken, true, requestType);
         }
-        return new LogInResponse("null", false);
+        return new LogInResponse("null", false, requestType);
     }
 
 }

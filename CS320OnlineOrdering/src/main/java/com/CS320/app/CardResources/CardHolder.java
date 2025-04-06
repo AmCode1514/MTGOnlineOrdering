@@ -13,7 +13,7 @@ public class CardHolder {
 
     private List<Card> cards;
     private transient HashMap<String, ListBlock> prefixMap;
-    private transient HashMap<String, Card> hmacMap;
+    private transient HashMap<String, Card> idMap;
     private transient Card[] searchArray;
     private transient boolean initialized = false;
     private transient CardTrie advancedSearchTrie;
@@ -24,12 +24,12 @@ public class CardHolder {
     private CardHolder() {
     }
     //invoked after deserialization to set up object.
-    public void init(byte[] key) {
+    public void init() {
       if (initialized) {
         return;
       }
       
-      hmacMap = new HashMap<>();
+      idMap = new HashMap<>();
       for (int i = 0; i < cards.size(); ++i) {
         cards.get(i).normalizeName();
         cards.get(i).sendNameToLowerCase();
@@ -40,7 +40,7 @@ public class CardHolder {
         }
         else {
           try {
-            hmacMap.put(cards.get(i).getHMACHash(key), cards.get(i));
+            idMap.put(cards.get(i).getTcgplayer_id(), cards.get(i));
             
           }
           catch(Exception e) {
@@ -54,9 +54,9 @@ public class CardHolder {
       prefixMap = new HashMap<>();
       for (int i = 0; i < cards.size(); ++i) {
         //examine this card toLowerCase again, there was a bug and the following calls should be unnecessary considering the whole list should be lower case from the above loop
-        if (!prefixMap.containsKey(getCardNameAtIndex(i).substring(0, 2).toLowerCase())) {
+        if (!prefixMap.containsKey(getCardNameAtIndex(i).substring(0, 2))) {
           ListBlock curr = new ListBlock(i);
-          prefixMap.put(getCardNameAtIndex(i).substring(0,2).toLowerCase(), curr);
+          prefixMap.put(getCardNameAtIndex(i).substring(0,2), curr);
           last.setEndIndex(i - 1);
           last = curr;
         }
@@ -75,9 +75,9 @@ public class CardHolder {
       return cards.get(index).getName();
     }
 
-    public Card getCardFromOrderRequest(Card card, byte[] key) throws CardValidationException {
+    public Card getCardFromOrderRequest(String id) throws CardValidationException {
       //the following line throws an exception only if the name or tcg id is missing
-      Card t = hmacMap.get(card.getHMACHash(key));
+      Card t = idMap.get(id);
       if (t == null) {
         //this is the case in which a security violation likely occured, there is no addendum and the context will be injected into the exception.
         throw new CardValidationException("");
@@ -112,7 +112,7 @@ public class CardHolder {
     }
     //this helper function performs the binary search using the inbuilt binary search array algorithm. end indices are exclusive which is why 1 is added.
     private int bestMatchIndex(Card[] search, ListBlock block, String name) {
-      int index = Arrays.binarySearch(search, block.startIndex, block.endIndex + 1, Card.getCard(name), new CardNameComparator());
+      int index = Arrays.binarySearch(search, block.startIndex, block.endIndex + 1, Card.getCard(name, ""), new CardNameComparator());
       return index;
     }
 
@@ -124,7 +124,7 @@ public class CardHolder {
         ++startingIndex;
       }
     }
-    public List<Card> advancedSearch(String name, String set, Byte mask, int maxDepth) {
+    public Card[] advancedSearch(String name, String set, Byte mask, int maxDepth) {
       return advancedSearchTrie.find(mask, name, set, maxDepth);
     }
     //test function find

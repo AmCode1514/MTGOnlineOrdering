@@ -22,13 +22,14 @@ public class Controller {
 
     private final Javalin runningWebserver;
     private final SessionManager sessionTracker;
+    private final OrdersList orders;
     private static final Logger logger = Logger.getLogger("Master");
     private final CardListAccessor cards;
     private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
     private final ReadLock readLock = lock.readLock();
     private final WriteLock writerLock = lock.writeLock();
 
-    public Controller(Javalin app, SessionManager manager) throws Exception {
+    public Controller(Javalin app, SessionManager manager, OrdersList orders) throws Exception {
         try {
             FileHandler handler = new FileHandler();
             handler.setFormatter(new SimpleFormatter());
@@ -39,8 +40,11 @@ public class Controller {
         }
         this.runningWebserver = app;
         this.sessionTracker = manager;
+        this.orders = orders;
         Thread t = sessionTracker;
         t.start();
+        Thread g = orders;
+        g.start();
     }
 
     // don't have a good name for this method since its scope isn't well defined;
@@ -107,6 +111,9 @@ public class Controller {
         }
         if((flags & 0b00000100) > 0) {
             builder.withCardListAccessor(cards);
+        }
+        if((flags & 0b00001000) > 0) {
+            builder.withOrdersList(orders);
         }
         return builder.build();
     }
