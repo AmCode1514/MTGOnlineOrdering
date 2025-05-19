@@ -8,15 +8,14 @@ public abstract class AuthenticationRequest extends Request {
 
     protected Session associatedSession;
 
-    protected SessionManager manager;
 
     protected void checkAuthenticationStatus() {
         //one way to make this more secure would be to append some value based on the users identifying information to the tokens upon creation. But not send this information back to the user.
         //this way, if someone steals the token but then sends info not consistent with the original user who created it, the server can deny or flag the request.
         //using the ip would probably be the most logical solution.
-        if (manager.contains(token)) {
+        if (pkg.getSessionManager().contains(token)) {
             isAuthenticated = true;
-            associatedSession = manager.get(token);
+            associatedSession = pkg.getSessionManager().get(token);
         }
     }
 }

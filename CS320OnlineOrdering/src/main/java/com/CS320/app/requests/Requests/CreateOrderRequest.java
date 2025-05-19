@@ -11,6 +11,8 @@ import com.CS320.app.requests.Responses.CreateOrderResponse;
 import com.CS320.app.requests.Responses.Response;
 import com.CS320.app.server.SessionManager;
 
+import io.javalin.http.Context;
+
 public class CreateOrderRequest extends AuthenticationRequest {
     private List<String> tcgIDs;
     //status can likely be replaced with boolean or int flag
@@ -19,7 +21,7 @@ public class CreateOrderRequest extends AuthenticationRequest {
     private String status;
 
     @Override
-    public Response buildResponse() throws Exception {
+    public Response buildResponse(Context ctx) throws Exception {
         if (token == null) {
             status = "RedirectLogIn";
             return new CreateOrderResponse(status, isAuthenticated, 0, token, requestType);
