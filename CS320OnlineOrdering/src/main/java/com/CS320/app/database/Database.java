@@ -13,7 +13,7 @@ public class Database{
     private static final Database finalInstance = new Database();
      private Database() {
     }
-    public boolean validatePassword(String sql, String password){
+    public UserData validatePassword(String sql, String password){
         try(
             // connect to the database and query
             Connection conn = DriverManager.getConnection(DatabaseCredential.getUrl(), DatabaseCredential.getUser(), DatabaseCredential.getPassword());
@@ -22,12 +22,18 @@ public class Database{
             )
             {
                 if (results.next()) {
-                    return hashPassword(password).equals(results.getString(1));
+                    String fetchedEmail = results.getString(1);
+                    if (fetchedEmail != null) {
+                        boolean authenticationStatus = hashPassword(password).equals(results.getString(2));
+                        if (authenticationStatus) {
+                            return new UserData(fetchedEmail, authenticationStatus, results.getBoolean(3));
+                        }
+                    }
                 }
-                return false;
+                return null;
             }catch (SQLException e){
                 e.printStackTrace();
-                return false;
+                return null;
             }
         }
 

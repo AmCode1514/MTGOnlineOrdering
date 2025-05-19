@@ -24,12 +24,11 @@ public class Session {
     public String getEmail() {
         return email;
     }
+    public String getToken() {
+        return token;
+    }
     public void updateActivity() {
         time = System.currentTimeMillis();
-    }
-    @Override
-    public int hashCode() {
-        return token.hashCode();
     }
     public void setOrder(Order order) throws ArrayIndexOutOfBoundsException{
         for(int i = 0; i < orders.length; ++i) {

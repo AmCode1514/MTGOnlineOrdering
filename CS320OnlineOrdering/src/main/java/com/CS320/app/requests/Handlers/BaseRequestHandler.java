@@ -40,7 +40,7 @@ public class BaseRequestHandler extends RequestHandler {
 
     @Override
     protected void buildRequestResponse() throws Exception {
-        response = request.buildResponse();
+        response = request.buildResponse(super.ctx);
     }
 
     @Override

@@ -17,15 +17,13 @@ public class DatabaseRequestExecutor {
     }
 
     // this method is adding a new user to the database
-    public boolean addUser(String firstname, String Lastname, String Email, String points, String Password) {
-       String query =  String.format("INSERT INTO *addName* (FirstName, LastName, Email, Points, Password, isAdmin) VALUES ('%s', '%s', '%s', '%s', '%s');", firstname, Lastname, Email, points,database.hashPassword(Password)); 
+    public boolean addUser(String firstname, String Lastname, String Email, String Password, int AdminStatus) {
+       String query = String.format("INSERT INTO %s (FirstName, LastName, Email, Password, AdminStatus) VALUES ('%s', '%s', '%s', '%s', '%s');", DatabaseCredential.getDBName(), firstname, Lastname, Email, database.hashPassword(Password), AdminStatus); 
        return database.createUser(query); 
     }
-
-
     // this method checks if the selected email and password exist in the datbase
-    public boolean signInSignal(String email, String enteredPassword) {
-        String query = String.format("SELECT Password FROM *addName* WHERE Email = '%s';", email);
+    public UserData signIn(String email, String enteredPassword) {
+        String query = String.format("SELECT Email, Password, AdminStatus FROM %s WHERE Email = '%s';", DatabaseCredential.getDBName() ,email);
         return database.validatePassword(query, enteredPassword); 
 
     }

@@ -5,6 +5,8 @@ import com.CS320.app.misc.ServerResourcePackage;
 import com.CS320.app.requests.Responses.Response;
 import com.CS320.app.requests.Responses.SearchCardsRequestResponse;
 
+import io.javalin.http.Context;
+
 public class SearchCardsRequest extends Request{
     private String name;
     private String set;
@@ -14,7 +16,7 @@ public class SearchCardsRequest extends Request{
     private int depth;
     private boolean desiredSearch;
     @Override
-    public Response buildResponse() {
+    public Response buildResponse(Context ctx) {
         try {
             if (name.length() < 2) {
                 return new SearchCardsRequestResponse(new Card[0], 0, requestType);

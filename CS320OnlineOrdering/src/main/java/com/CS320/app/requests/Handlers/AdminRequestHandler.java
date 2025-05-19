@@ -40,7 +40,7 @@ public class AdminRequestHandler extends RequestHandler {
 
     @Override
     protected void buildRequestResponse() throws Exception {
-        response = request.buildResponse();
+        response = request.buildResponse(super.ctx);
     }
     @Override
     public byte getRequiredResources() {

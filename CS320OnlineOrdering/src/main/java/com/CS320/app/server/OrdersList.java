@@ -103,7 +103,7 @@ public class OrdersList extends Thread {
     }
 
     public void priceOrder(Order order) throws MalformedURLException, IOException, Exception{
-        //first, create
+        //more work needs to be done, specifically the foil flags must be updated accordingly and individual prices stored in the order.
         double accumulatedPrice = 0;
         int i = 0;
         for (Card orderedCard : order.getCardList()) {

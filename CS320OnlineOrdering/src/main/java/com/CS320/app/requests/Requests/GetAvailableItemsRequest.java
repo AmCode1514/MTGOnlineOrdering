@@ -4,6 +4,8 @@ package com.CS320.app.requests.Requests;
 import com.CS320.app.misc.ServerResourcePackage;
 import com.CS320.app.requests.Responses.Response;
 
+import io.javalin.http.Context;
+
 public class GetAvailableItemsRequest extends Request {
     public int numRequestedItems;
     public GetAvailableItemsRequest() {
@@ -15,7 +17,7 @@ public class GetAvailableItemsRequest extends Request {
     }
 
     @Override
-    public Response buildResponse() {
+    public Response buildResponse(Context ctx) {
         return null;
     }
     @Override

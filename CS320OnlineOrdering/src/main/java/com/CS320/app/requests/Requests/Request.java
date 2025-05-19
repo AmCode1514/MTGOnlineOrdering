@@ -13,7 +13,7 @@ public abstract class Request {
     protected String requestType;
     protected String ip;
     protected transient ServerResourcePackage pkg;
-    public abstract Response buildResponse() throws Exception;
+    public abstract Response buildResponse(Context ctx) throws Exception;
 
     public void injectResourcePackage(ServerResourcePackage pkg) {
         this.pkg = pkg;

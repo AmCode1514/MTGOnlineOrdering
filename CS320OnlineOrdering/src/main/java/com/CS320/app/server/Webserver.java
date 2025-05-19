@@ -64,7 +64,7 @@ public class WebServer {
             }
         });
         app.post("/api/Admin/UpdateCardList", ctx -> {
-            String response = sendToJson(webserverThreadController.baseControlFlow(new AdminRequestHandler(UpdateCardsRequest.class, ctx)));
+            String response = sendToJson(webserverThreadController.administratorControlFlow(new AdminRequestHandler(UpdateCardsRequest.class, ctx)));
             if (response == null) {
                 ctx.status(500);
             }

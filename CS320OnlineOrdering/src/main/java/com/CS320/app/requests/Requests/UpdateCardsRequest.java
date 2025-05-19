@@ -5,8 +5,10 @@ import com.CS320.app.requests.Responses.Response;
 import com.CS320.app.requests.Responses.UpdateCardsRequestResponse;
 import com.CS320.app.server.Session;
 
+import io.javalin.http.Context;
+
 public class UpdateCardsRequest extends AuthenticationRequest { 
-    public Response buildResponse() {
+    public Response buildResponse(Context ctx) {
         try{
             long initialTime = System.currentTimeMillis();
             Session userSession = pkg.getSessionManager().get(token);
