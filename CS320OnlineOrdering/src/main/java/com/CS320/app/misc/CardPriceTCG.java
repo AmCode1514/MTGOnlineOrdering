@@ -3,7 +3,7 @@ package com.CS320.app.misc;
 public class CardPriceTCG {
     private String printingType;
     private double marketPrice;
-    private Double buylistMarketPrice; 
+    private double buylistMarketPrice; 
     private double listedMedianPrice;
     
     public String getPrintingType() {
@@ -22,11 +22,11 @@ public class CardPriceTCG {
         this.marketPrice = marketPrice;
     }
 
-    public Double getBuylistMarketPrice() {
+    public double getBuylistMarketPrice() {
         return buylistMarketPrice;
     }
 
-    public void setBuylistMarketPrice(Double buylistMarketPrice) {
+    public void setBuylistMarketPrice(double buylistMarketPrice) {
         this.buylistMarketPrice = buylistMarketPrice;
     }
 
