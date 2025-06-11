@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -25,7 +26,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class OrdersList extends Thread {
-    private final HashMap<String, ArrayList<Order>> ordersMap = new HashMap<String, ArrayList<Order>>();
+    private final Map<String, List<Order>> ordersMap = new HashMap<String, List<Order>>();
     //1000 is an arbitrary value, in the current use-case there would never be more than a handful
     private final BlockingQueue<Order> priceQueue = new ArrayBlockingQueue<Order>(1000);
     public OrdersList() {
@@ -43,7 +44,7 @@ public class OrdersList extends Thread {
     public synchronized void removeOrder(String email, int orderNumber) {
         //this will need more extensive logging aspects.
         if (ordersMap.get(email) != null) {
-            ArrayList<Order> customerOrders = ordersMap.get(email);
+            List<Order> customerOrders = ordersMap.get(email);
             for (int i = 0; i < customerOrders.size(); ++i) {
                 if (customerOrders.get(i).getOrderNumber() == orderNumber) {
                     customerOrders.remove(i);
@@ -63,7 +64,7 @@ public class OrdersList extends Thread {
     //return null if an order with a non-matching email and orderNumber
     public synchronized Order getOrder(String email, int orderNumber) {
         if (ordersMap.get(email) != null) {
-            ArrayList<Order> customerOrders = ordersMap.get(email);
+            List<Order> customerOrders = ordersMap.get(email);
             for (int i = 0; i < customerOrders.size(); ++i) {
                 if (customerOrders.get(i).getOrderNumber() == orderNumber) {
                     return customerOrders.get(i);
@@ -72,17 +73,11 @@ public class OrdersList extends Thread {
         }
         return null;
     }
-    public synchronized ArrayList<Order> getAllOrders() {
-        ArrayList<Order> combinedList = new ArrayList<>();
-        Iterator<ArrayList<Order>> entries = ordersMap.values().iterator();
-        while(entries.hasNext()) {
-            ArrayList<Order> currCustomerOrderList = entries.next();
-            combinedList.addAll(currCustomerOrderList);
-        }
-        return combinedList;
+    public synchronized Map<String, List<Order>> getAllOrders() {
+        return ordersMap;
     }
 
-    public synchronized ArrayList<Order> getAllOrdersFromEmail(String email) {
+    public synchronized List<Order> getAllOrdersFromEmail(String email) {
         return ordersMap.get(email);
     }
 
@@ -128,6 +123,7 @@ public class OrdersList extends Thread {
                         foilFlagAtIndex = false;
                     }
                     Double priceValue = parseTCGPrice(builder.toString(), foilFlagAtIndex);
+                    order.addPrice(priceValue);
                     ++i;
                     if (priceValue == null) {
                         throw new Exception("priceValue is null, json failed to parse properly");

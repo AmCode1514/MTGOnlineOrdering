@@ -1,4 +1,5 @@
 package com.CS320.app.misc;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.CS320.app.CardResources.Card;
@@ -6,6 +7,7 @@ import com.CS320.app.CardResources.Card;
 public class Order {
     private static int currOrderNumber = 0;
     private List<Card> items;
+    private List<Double> cardPricesFromTCG;
     private boolean[] foilFlags;
     private final String email;
     private int numItems;
@@ -18,10 +20,14 @@ public class Order {
         this.email = email;
         this.orderID = currOrderNumber;
         this.foilFlags = foilFlags;
+        cardPricesFromTCG = new ArrayList<Double>();
         ++currOrderNumber;
     }
     public String getEmail() {
         return email;
+    }
+    public void addPrice(Double price) {
+        cardPricesFromTCG.add(price);
     }
     public int getOrderNumber() {
         return orderID;

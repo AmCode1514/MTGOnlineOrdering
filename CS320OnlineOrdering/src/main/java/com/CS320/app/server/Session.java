@@ -4,6 +4,7 @@ import com.CS320.app.misc.Order;
 
 public class Session {
     private String ip;
+    //can easily add name easily to the sessions for use with orders
     private String token;
     private String email;
     private long time;

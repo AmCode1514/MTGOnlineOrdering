@@ -7,7 +7,9 @@ import com.CS320.app.requests.Handlers.BaseRequestHandler;
 import com.CS320.app.requests.Requests.CreateOrderRequest;
 import com.CS320.app.requests.Requests.CreateUserRequest;
 import com.CS320.app.requests.Requests.GetAvailableItemsRequest;
+import com.CS320.app.requests.Requests.GetUserOrdersRequest;
 import com.CS320.app.requests.Requests.LogInRequest;
+import com.CS320.app.requests.Requests.PriceOrderRequest;
 import com.CS320.app.requests.Requests.SearchCardsRequest;
 import com.CS320.app.requests.Requests.UpdateCardsRequest;
 import com.CS320.app.requests.Responses.Response;
@@ -45,15 +47,15 @@ public class WebServer {
                 ctx.result(response);
             }
         });
-        app.post("/api/Checkout", ctx -> {
-            String response = sendToJson(webserverThreadController.baseControlFlow(new BaseRequestHandler(CreateOrderRequest.class, ctx)));
-            if (response == null) {
-                ctx.status(500);
-            }
-            else {
-                ctx.result(response);
-            }
-        });
+        // app.post("/api/Checkout", ctx -> {
+        //     String response = sendToJson(webserverThreadController.baseControlFlow(new BaseRequestHandler(CreateOrderRequest.class, ctx)));
+        //     if (response == null) {
+        //         ctx.status(500);
+        //     }
+        //     else {
+        //         ctx.result(response);
+        //     }
+        // });
         app.post("/api/Available", ctx -> {
             String response = sendToJson(webserverThreadController.baseControlFlow(new BaseRequestHandler(GetAvailableItemsRequest.class, ctx)));
             if (response == null) {
@@ -84,6 +86,36 @@ public class WebServer {
 
         app.post("/api/CreateUser", ctx -> {
             String response = sendToJson(webserverThreadController.baseControlFlow(new BaseRequestHandler(CreateUserRequest.class,ctx)));
+            if (response == null) {
+                ctx.status(500);
+            }
+            else {
+                ctx.result(response);
+            }
+            }
+        );
+        app.post("/api/CreateOrderRequest", ctx -> {
+            String response = sendToJson(webserverThreadController.baseControlFlow(new BaseRequestHandler(CreateOrderRequest.class,ctx)));
+            if (response == null) {
+                ctx.status(500);
+            }
+            else {
+                ctx.result(response);
+            }
+            }
+        );
+        app.post("/api/GetUserOrdersRequest", ctx -> {
+            String response = sendToJson(webserverThreadController.baseControlFlow(new BaseRequestHandler(GetUserOrdersRequest.class,ctx)));
+            if (response == null) {
+                ctx.status(500);
+            }
+            else {
+                ctx.result(response);
+            }
+            }
+        );
+        app.post("/api/PriceOrderRequest", ctx -> {
+            String response = sendToJson(webserverThreadController.baseControlFlow(new BaseRequestHandler(PriceOrderRequest.class,ctx)));
             if (response == null) {
                 ctx.status(500);
             }
