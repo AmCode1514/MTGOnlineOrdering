@@ -1,21 +1,87 @@
 @import "tailwindcss";
 
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
+/* -------------------------------------------------
+   1. THEME TOKENS (fonts, etc.)
+-------------------------------------------------- */
+@theme {
+  --font-sans:
+    "Futura", "Futura PT", "Avenir", "Avenir Next", "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
 }
 
+/* -------------------------------------------------
+   2. LIGHT MODE — Board Game Card Shop Palette
+-------------------------------------------------- */
+:root {
+  color-scheme: light;
+
+  /* Backgrounds */
+  --color-bg: #f7f4ea; /* table/parchment tone */
+  --color-surface: #ffffff; /* card white */
+
+  /* Text */
+  --color-text: #2a2a2a;
+  --color-text-muted: #5a5a5a;
+
+  /* Utility colors */
+  --color-border: #d4d4d4;
+  --color-highlight: #ffe08a;
+
+  /* Brand colors */
+  --color-primary: #c0392b;
+  --color-primary-contrast: #ffffff;
+
+  --color-accent: #1e88e5;
+  --color-accent-contrast: #ffffff;
+}
+
+/* -------------------------------------------------
+   3. DARK MODE
+-------------------------------------------------- */
+.dark {
+  color-scheme: dark;
+
+  --color-bg: #0f0f0f;
+  --color-surface: #1a1a1a;
+
+  --color-text: #f4f4f4;
+  --color-text-muted: #b8b8b8;
+
+  --color-border: #333333;
+  --color-highlight: #8e6b00;
+
+  --color-primary: #e74c3c;
+  --color-primary-contrast: #1a1a1a;
+
+  --color-accent: #64b5f6;
+  --color-accent-contrast: #0f0f0f;
+}
+
+/* -------------------------------------------------
+   4. GLOBAL STYLES
+-------------------------------------------------- */
 html {
-  color-scheme: light dark;
+  font-family: var(--font-sans);
 }
-* {
-  @apply border-gray-200 dark:border-gray-800;
-}
+
 body {
-  @apply bg-gray-50 text-gray-950 dark:bg-gray-900 dark:text-gray-200;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Smooth theme transitions */
+*,
+*::before,
+*::after {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.home-background {
+  color: var(--color-text-muted);
 }
